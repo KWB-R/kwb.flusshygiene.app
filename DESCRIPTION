@@ -1,0 +1,23 @@
+Package: kwb.flusshygiene.app
+Title: R Package Implementing the Flusshygiene Application
+Version: 0.0.0.9000
+Authors@R: 
+    c(person(given = "Wolfgang",
+             family = "Seis",
+             role = c("aut", "cre"),
+             email = "wolfgang.seis@kompetenz-wasser.de",
+             comment = c(ORCID = "0000-0002-7436-8575")),
+      person(given = "Kompetenzzentrum Wasser Berlin gGmbH (KWB)",
+             role = "cph"))
+Description: R Package Implementing the Flusshygiene
+    Application. This package provides the functions required to setup the
+    web application as it was developed during the KWB project
+    'Flusshygiene'.
+License: MIT + file LICENSE
+URL: https://github.com/KWB-R/kwb.flusshygiene.app
+BugReports: https://github.com/KWB-R/kwb.flusshygiene.app/issues
+Encoding: UTF-8
+LazyData: true
+Suggests: 
+    covr
+RoxygenNote: 6.1.1
