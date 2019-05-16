@@ -1,0 +1,46 @@
+Nummer;Bezeichnung;Stadtteil;Adresse;PI_Bez;PI_ID;FLUSSHYGIENE;OSW;Vorhersage_KBW
+1;BWB01;Wilmersdorf;Genthiner Str.10, 10785 Berlin;Bln VII;3.03;Nein;Nein;Nein
+2;BWB02;Steglitz;John-Locke-Str. 45-47, 12305 Berlin;Lrd;2.07;Nein;Nein;Nein
+3;BWB03;Steglitz;Grillostr. 33, 12277 Berlin;Mfd I;2.05;Nein;Nein;Nein
+4;BWB04;Spandau;Daumstr. 1, 13599 Berlin;Spa II;5.02;Ja;Nein;Ja
+5;BWB05;Spandau;Wegscheider Str. 39-40, 13585 Berlin;Spa III;5.03;Nein;Nein;Nein
+6;BWB06;Kreuzberg;Paul-Lincke-Ufer 19, 10999 Berlin;Bln I;8.02;Nein;Nein;Nein
+7;BWB07;Neukoelln;Schandauer Str. 14, 12045 Berlin;Nkn I;8.07;Ja;Nein;Ja
+8;BWB08;Neukoelln;Sonnenallee 289, 12057 Berlin;Nkn II;8.08;Nein;Nein;Nein
+9;BWB09;Charlottenburg;Sophie-Charlotte-Str. 114, 14059 Berlin;Chb I;4.01;Ja;Nein;Ja
+10;BWB10;Charlottenburg;Alt-Moabit 70, 10555 Berlin;Bln VIII;4.14;Nein;Nein;Nein
+11;BWB11;Charlottenburg;Bellermannstr. 6, 13357 Berlin;Bln X;14.08;Ja;Nein;Ja
+12;BWB12;Zehlendorf;Teltower Damm 282, 14167 Berlin;;;Nein;Nein;Nein
+13;BWB13;Charlottenburg;Seestr.3, 13535 Berlin;Bln IX;4.17;Ja;Nein;Ja
+14;BWB14;Spandau;Gatower Str. 328, 14081 Berlin;Spa Ia;5.15;Ja;Nein;Ja
+15;BWB15;Spandau;Nennhauser Damm 56, 14081 Berlin;Spa Vc;5.19;Nein;Nein;Nein
+16;BWB16;Wilmersdorf;Hohenzollerndamm 208, 10717 Berlin;Wil;3.01;Ja;Nein;Ja
+17;BWB17;Wilmersdorf;Koenigsallee 73, 14193 Berlin;Wil a;3.08;Ja;Nein;Ja
+18;BWB18;Heiligensee;Heiligenseestr. 59, 13503 Berlin;Hlg;6.12;Nein;Nein;Nein
+19;BWB19;Frohnau;Bifroestweg 7, 13465 Berlin;Waid a;6.05;Nein;Nein;Nein
+20;BWB20;Zehlendorf;Stoelpchenweg 48, 14109 Berlin;Zhl Ie;1.07;Nein;Nein;Nein
+21;BWB21;Zehlendorf;Am grossen Wannsee, 14109 Berlin;Zhl Ih;1.09;Nein;Nein;Nein
+22;BWB22;Britz;Spaethstr. 29, 12359 Berlin;Bri;11.01;Nein;Nein;Nein
+23;BWB23;Rudow;Stubenrauchstr. 112, 12357 Berlin;Rud;11.02;Nein;Nein;Nein
+24;BWB24;Johannisthal;Winckelmannstr. 36, 12487 Berlin;Joh;11.03;Ja;Ja;Nein
+25;BWB25;Gruenau;Lindenstr. , 12527 Berlin;Grü c;11.1;Nein;Nein;Nein
+26;BWB26;Friedrichshagen;Peter-Hille Str. 78, 12587 Berlin;Fhg;12.08;Nein;Nein;Nein
+27;BWB27;Mueggelheim;Becherbacherstr. 25, 12559 Berlin;Köp If;;Nein;Nein;Nein
+28;BWB28;Oberschoeneweid;Wilhelminenhofstr.9, 12459 Berlin;Owd;13.04;Ja;Ja;Nein
+29;BWB29;Malchow;Ribnitzerstr. 40, 13051 Berlin;Mal;15.05;Ja;Ja;Nein
+30;BWB30;Friedrichshain;Holzmarktstr. 31-32, 10243 Berlin;Bln V;14.01;Ja;Nein;Ja
+31;BWB31;Reinickendorf;Zermatter Str. 28, 13407 Berlin;Rei I;6.02;Ja;Nein;Ja
+32;BWB32;Hohenschoenhaus;Waldowstr. 2-5, 13053 Berlin;Hsch;15.07;Ja;Ja;Nein
+33;BWB33;Weissensee;Erich-Weinert-Str. 131, 10409 Berlin;Bln XI;14.06;Ja;Nein;Ja
+34;BWB34;Lichtenberg;Fischerstr. 30, 10317 Berlin;Lbg;13.01;Ja;Ja;Nein
+35;BWB35;Gruenau;Walchenseestr. 5/7, 12527 Berlin;Grü;11.06;Nein;Nein;Nein
+41;BWB41;Koepenick;Wendenschlossstr. 86, 125559 Berlin;Köp I;12.01;Nein;Nein;Nein
+46;BWB46;Marzahn;Wiesenburger Weg14, 12681 Berlin;Mar I;15.01;Nein;Nein;Nein
+47;BWB47;Biesdorf;Grabensprung 79, 12683 Berlin;Bie I;13.02;Nein;Nein;Nein
+49;BWB49;Karow;Pankgrafenstr. 12c, 13125 Berlin;Kar;16.01;Nein;Nein;Nein
+56;BWB56;Zehlendorf;Koenigstr. 24, 14163 Berlin;Zhl I;1.01;Nein;Nein;Nein
+57;BWB57;Koepenick;Fahlenbergstr. 62, 12589 Berlin;Hes;12.12;Nein;Nein;Nein
+55;BWB55;Steglitz;Siemensstr. 37-39, 12247 Berlin;Stg;2.01;Ja;Nein;Ja
+60;BWB60;Spandau;Betckestr. 10-12, 13595 Berlin;Spa I;5.01;Ja;Nein;Ja
+61;BWB61;Wittenau;Breitenbachstr.31, 13509 Berlin;Wit;6.01;Ja;Nein;Ja
+62;BWB62;Mitte;Chausseestr. 95, 10115 Berlin;Bln IV;14.02;Ja;Nein;Ja
