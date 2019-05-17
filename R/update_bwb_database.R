@@ -17,13 +17,14 @@
 #'
 update_bwb_database <- function(root, user_pwd, dbg = TRUE)
 {
-  # Set paths and create if necessary
+  # Create download folder if necessary
   path_bwb <- kwb.utils::createDirectory(file.path(root, "downloads", "bwb"))
-  path_database <- kwb.utils::createDirectory(file.path(root, "database"))
 
-  file_bwb_database_fst <- file.path(path_database, "rain-ruhleben.fst")
-  file_bwb_database_csv <- file.path(path_database, "rain-ruhleben.csv")
-                           #file.path(path, "Input/Regen_Ruhleben.csv")
+  # Create database folder ir necessary
+  kwb.utils::createDirectory(file.path(root, "database"))
+
+  file_bwb_database_fst <- db_path(root, "rain-ruhleben.fst")
+  file_bwb_database_csv <- db_path(root, "rain-ruhleben.csv")
 
   # Get paths to files that are available locally
   files_bwb <- dir(path_bwb, full.names = TRUE)

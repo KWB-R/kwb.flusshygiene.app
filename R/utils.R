@@ -1,3 +1,11 @@
+# add_day_column_from ----------------------------------------------------------
+add_day_column_from <- function(df, column)
+{
+  date_time <- kwb.utils::selectColumns(df, column)
+
+  kwb.utils::setColumns(df, Day = lubridate::as_date(date_time))
+}
+
 # bind_and_clean ---------------------------------------------------------------
 
 #' Row-Bind and Clean Time Series in Data Frames
@@ -13,6 +21,20 @@ bind_and_clean <- function(x)
 
   # Exclude duplicates by keeping rows with non-duplicated times
   x[! duplicated(x$DateTime), ]
+}
+
+# db_path ----------------------------------------------------------------------
+
+#' Path to "Database" File
+#'
+#' @param root path to "root" directory of the application
+#' @param file file name within application's "database" folder
+#'
+#' @export
+#'
+db_path <- function(root, file)
+{
+  kwb.utils::safePath(file.path(root, "database", file))
 }
 
 # day_strings_until_today ------------------------------------------------------
@@ -79,6 +101,12 @@ list_files_on_ftp_server <- function(user_pwd)
 
   # Extract column number 9 containing the file names
   sapply(strsplit(info_lines, "\\s+"), "[[", 9)
+}
+
+# round_2 ----------------------------------------------------------------------
+round_2 <- function(x)
+{
+  round(x, digits = 2)
 }
 
 # write_input_file -------------------------------------------------------------

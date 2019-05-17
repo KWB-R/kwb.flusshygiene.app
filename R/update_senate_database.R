@@ -11,9 +11,11 @@ update_senate_database <- function(root, user_pwd)
 {
   #kwb.utils::assignPackageObjects("kwb.flusshygiene.app")
 
-  # Set paths and create if necessary
+  # Create download folder if necessary
   path_senate <- kwb.utils::createDirectory(file.path(root, "downloads", "senate"))
-  path_database <- kwb.utils::createDirectory(file.path(root, "database"))
+
+  # Create database folder if necessary
+  kwb.utils::createDirectory(file.path(root, "database"))
 
   # List all files that are available locally
   files_before <- dir(path_senate, full.names = TRUE)
@@ -37,8 +39,8 @@ update_senate_database <- function(root, user_pwd)
   new_data_list <- read_flows_from_files(files = new_files)
 
   # Define paths to fst files
-  file_database_TW <- file.path(path_database, "flow-tiefwerder.fst")
-  file_database_SW <- file.path(path_database, "flow-sophienwerder.fst")
+  file_database_TW <- db_path(root, "flow-tiefwerder.fst")
+  file_database_SW <- db_path(root, "flow-sophienwerder.fst")
 
   # Read existing data from fst files (NULL if fst files do not exist)
   data_TW <- if (file.exists(file_database_TW)) fst::read_fst(file_database_TW)
@@ -53,8 +55,8 @@ update_senate_database <- function(root, user_pwd)
   fst::write_fst(data_SW, file_database_SW)
 
   # Update the databases (CSV files)
-  write_input_file(data_TW, file.path(path_database, "flow-tiefwerder.csv"))
-  write_input_file(data_SW, file.path(path_database, "flow-sophienwerder.csv"))
+  write_input_file(data_TW, db_path(root, "flow-tiefwerder.csv"))
+  write_input_file(data_SW, db_path(root, "flow-sophienwerder.csv"))
 }
 
 # merge_flow_data --------------------------------------------------------------
