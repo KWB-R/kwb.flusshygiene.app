@@ -3,6 +3,7 @@
 export("%>%")
 export(bind_and_clean)
 export(day_strings_until_today)
+export(get_environment_variable)
 export(read_bwb_file)
 export(read_flows)
 export(update_bwb_database)

@@ -45,6 +45,29 @@ download_file <- function(url, destfile, dbg = TRUE)
   )
 }
 
+# get_environment_variable -----------------------------------------------------
+
+#' Get Environment Variable Giving a Hint on Missing Variables
+#'
+#' @param x name of environment variable
+#' @export
+#'
+get_environment_variable <- function(x)
+{
+  content <- Sys.getenv(x)
+
+  if (content == "") {
+
+    message(
+      sprintf("There is no such environment variable '%s'.\n", x),
+      "Use the following command to set the variable:\n",
+      sprintf("Sys.setenv(%s = \"<value-of-%s>\")", x, x)
+    )
+  }
+
+  content
+}
+
 # list_files_on_ftp_server -----------------------------------------------------
 list_files_on_ftp_server <- function(user_pwd)
 {
