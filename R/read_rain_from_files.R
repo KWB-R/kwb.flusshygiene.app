@@ -2,23 +2,19 @@
 read_rain_from_files <- function(files, dbg = TRUE)
 {
   # Read all those files and give consistent column names (dangerous!)
-  rain_data <- lapply(
-    files,
-    read_bwb_file,
-    column_names = get_bwb_rain_data_columns(),
-    dbg = dbg
-  )
+  rain <- lapply(files, read_bwb_file, dbg = dbg)
+
+  # Name the list elements by the corresponding file names
+  names(rain) <- basename(files)
 
   # 2. Combine all file contents to one data frame
-  rain_data <- dplyr::bind_rows(rain_data)
+  rain <- dplyr::bind_rows(rain, .id = "file")
 
-  # Delete rows with duplicated begin times and reorder by time
-  remove_duplicates_and_reorder(rain_data)
-}
+  # There should not be duplicates and the data should be sorted by time!
+  stopifnot(! any(duplicated(rain$tBeg)))
+  stopifnot(! is.unsorted(rain$tBeg))
 
-# remove_duplicates_and_reorder ------------------------------------------------
-remove_duplicates_and_reorder <- function(rain_data)
-{
-  rain_data[! duplicated(rain_data$tBeg), ] %>%
-    dplyr::arrange(.data$tBeg)
+  kwb.utils::printIf(dbg, kwb.datetime::getEqualStepRanges(rain$tBeg))
+
+  rain
 }

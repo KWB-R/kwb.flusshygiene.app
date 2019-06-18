@@ -4,14 +4,10 @@
 \alias{read_bwb_file}
 \title{Read BWB Rain Data File}
 \usage{
-read_bwb_file(file, column_names = get_bwb_rain_data_columns(),
-  dbg = TRUE)
+read_bwb_file(file, dbg = TRUE)
 }
 \arguments{
 \item{file}{full path to rain data file}
-
-\item{column_names}{names to be given to the columns of the returned rain
-data. Defaults to \code{kwb.flusshygiene.app:::get_bwb_rain_data_columns()}}
 
 \item{dbg}{write debug messages if \code{TRUE}}
 }

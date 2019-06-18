@@ -34,8 +34,11 @@ Imports:
     magrittr,
     RCurl,
     dplyr,
+    kwb.datetime,
     kwb.utils,
     lubridate,
     stringr,
     rlang,
     fst
+Remotes:
+    github::kwb-r/kwb.datetime

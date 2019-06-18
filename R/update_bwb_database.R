@@ -87,13 +87,11 @@ update_bwb_database <- function(root, user_pwd, dbg = TRUE)
     dbg = dbg
   )
 
-  bwb_data <- dplyr::bind_rows(bwb_data, bwb_data_new) %>%
-    remove_duplicates_and_reorder()
+  bwb_data <- dplyr::bind_rows(bwb_data, bwb_data_new)
+  # %>% remove_duplicates_and_reorder()
 
   stopifnot(! is.unsorted(bwb_data$tBeg))
   stopifnot(sum(duplicated(bwb_data$tBeg)) == 0)
-
-  #kwb.datetime:::isValidTimestampSequence(bwb_data$tBeg)
 
   # Save the updated rain "database"
   fst::write_fst(bwb_data, file_bwb_database_fst)
