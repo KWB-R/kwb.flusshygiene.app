@@ -34,7 +34,7 @@ bind_and_clean <- function(x)
 #'
 db_path <- function(root, file)
 {
-  kwb.utils::safePath(file.path(root, "database", file))
+  file.path(root, "database", file)
 }
 
 # day_strings_until_today ------------------------------------------------------
