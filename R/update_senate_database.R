@@ -21,7 +21,7 @@ update_senate_database <- function(root, user_pwd)
   files_before <- dir(path_senate, full.names = TRUE)
 
   # Download new data from the senate's ftp server
-  download_todays_file_from_senate(path_senate, user_pwd)
+  ftp_download_senate_file_today(path_senate, user_pwd)
 
   # List all files that are available locally
   files_after <- dir(path_senate, full.names = TRUE)

@@ -1,5 +1,5 @@
-# download_todays_file_from_senate ---------------------------------------------
-download_todays_file_from_senate <- function(dest_folder, user_pwd, dbg = TRUE)
+# ftp_download_senate_file_today -----------------------------------------------
+ftp_download_senate_file_today <- function(dest_folder, user_pwd, dbg = TRUE)
 {
   url <- sprintf("ftp://%s@193.23.163.140/ExportFlusshygiene.csv", user_pwd)
 

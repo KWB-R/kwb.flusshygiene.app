@@ -75,7 +75,7 @@ update_bwb_database <- function(root, user_pwd, dbg = TRUE)
 
   # Download files from FTP-Server to a temporary directory and copy them to the
   # rain data directory
-  download_files_from_ftp_server(
+  ftp_download_bwb_files(
     missing_files,
     target_dir = path_bwb,
     user_pwd = user_pwd
