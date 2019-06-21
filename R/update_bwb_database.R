@@ -17,6 +17,8 @@
 #'
 update_bwb_database <- function(root, user_pwd, dbg = TRUE)
 {
+  #kwb.utils::assignPackageObjects("kwb.flusshygiene.app")
+
   # Create folder structure as necessary
   paths <- create_folder_structure(root)
 
@@ -61,8 +63,9 @@ update_bwb_database <- function(root, user_pwd, dbg = TRUE)
   missing_days <- setdiff(all_days, existing_days)
 
   # - days that are available for download
-  url <- sprintf("ftp://%s@ftp.kompetenz-wasser.de/", user_pwd)
-  ftp_files <- grep("^Regenschreiber_", kwb.dwd::list_url(url), value = TRUE)
+  ftp_url <- "ftp://ftp.kompetenz-wasser.de/"
+  ftp_files_all <- kwb.dwd::list_url(ftp_url, user_pwd = user_pwd)
+  ftp_files <- grep("^Regenschreiber_", ftp_files_all, value = TRUE)
 
   # Files that need to be downloaded
   missing_files <- ftp_files[extract_date_string(ftp_files) %in% missing_days]
