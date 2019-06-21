@@ -17,17 +17,16 @@
 #'
 update_bwb_database <- function(root, user_pwd, dbg = TRUE)
 {
-  # Create download folder if necessary
-  path_bwb <- kwb.utils::createDirectory(file.path(root, "downloads", "bwb"))
+  # Create folder structure as necessary
+  paths <- create_folder_structure(root)
 
-  # Create database folder ir necessary
-  kwb.utils::createDirectory(file.path(root, "database"))
+  download_dir <- paths$downloads_bwb
 
   file_bwb_database_fst <- db_path(root, "rain-ruhleben.fst")
   file_bwb_database_csv <- db_path(root, "rain-ruhleben.csv")
 
   # Get paths to files that are available locally
-  files_bwb <- dir(path_bwb, full.names = TRUE)
+  files_bwb <- dir(download_dir, full.names = TRUE)
 
   if (length(files_bwb) == 0) {
 
@@ -62,7 +61,8 @@ update_bwb_database <- function(root, user_pwd, dbg = TRUE)
   missing_days <- setdiff(all_days, existing_days)
 
   # - days that are available for download
-  ftp_files <- list_files_on_ftp_server(user_pwd)
+  url <- sprintf("ftp://%s@ftp.kompetenz-wasser.de/", user_pwd)
+  ftp_files <- grep("^Regenschreiber_", kwb.dwd::list_url(url), value = TRUE)
 
   # Files that need to be downloaded
   missing_files <- ftp_files[extract_date_string(ftp_files) %in% missing_days]
@@ -77,13 +77,13 @@ update_bwb_database <- function(root, user_pwd, dbg = TRUE)
   # rain data directory
   download_files_from_ftp_server(
     missing_files,
-    target_dir = path_bwb,
+    target_dir = download_dir,
     user_pwd = user_pwd
   )
 
   # Read the new files and update the rain "database"
   bwb_data_new <- read_rain_from_files(
-    files = file.path(path_bwb, missing_files),
+    files = file.path(download_dir, missing_files),
     dbg = dbg
   )
 
