@@ -1,5 +1,5 @@
-# download_files_from_ftp_server -----------------------------------------------
-download_files_from_ftp_server <- function(
+# ftp_download_bwb_files -------------------------------------------------------
+ftp_download_bwb_files <- function(
   file_names, target_dir, user_pwd, dbg = TRUE
 )
 {
