@@ -11,20 +11,19 @@ update_senate_database <- function(root, user_pwd)
 {
   #kwb.utils::assignPackageObjects("kwb.flusshygiene.app")
 
-  # Create download folder if necessary
-  path_senate <- kwb.utils::createDirectory(file.path(root, "downloads", "senate"))
+  # Create folder structure as necessary
+  paths <- create_folder_structure(root)
 
-  # Create database folder if necessary
-  kwb.utils::createDirectory(file.path(root, "database"))
+  download_dir <- paths$downloads_senate
 
   # List all files that are available locally
-  files_before <- dir(path_senate, full.names = TRUE)
+  files_before <- dir(download_dir, full.names = TRUE)
 
   # Download new data from the senate's ftp server
-  download_todays_file_from_senate(path_senate, user_pwd)
+  download_todays_file_from_senate(download_dir, user_pwd)
 
   # List all files that are available locally
-  files_after <- dir(path_senate, full.names = TRUE)
+  files_after <- dir(download_dir, full.names = TRUE)
 
   # Determine the new files that have been downloaded
   new_files <- setdiff(files_after, files_before)
