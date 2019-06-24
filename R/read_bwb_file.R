@@ -3,10 +3,13 @@
 #' Read BWB Rain Data File
 #'
 #' @param file full path to rain data file
+#' @param first_day_only if \code{TRUE} (the default) only the data
+#'   of the first day in the file is kept and the data belonging to further days
+#'   are removed. Otherwise everything is returned.
 #' @param dbg write debug messages if \code{TRUE}
 #' @export
 #'
-read_bwb_file <- function(file, dbg = TRUE)
+read_bwb_file <- function(file, first_day_only = TRUE, dbg = TRUE)
 {
   # Read CSV file with first two columns character and all others numeric
   x <- utils::read.csv(
@@ -28,16 +31,19 @@ read_bwb_file <- function(file, dbg = TRUE)
     stop("tBeg column contains NA!")
   }
 
-  # Extract the date parts of the timestamps
-  daystrings <- substr(x$tBeg, 1, 9)
+  if (first_day_only) {
 
-  # The time series of two consecutive files overlap. Keep only the data that
-  # refers to the day (delete the last rows representing the next day)
-  x <- kwb.utils::catAndRun(
-    dbg = dbg,
-    sprintf("Keeping only rows of day '%s'", daystrings[1]),
-    x[daystrings == daystrings[1], ]
-  )
+    # Extract the date parts of the timestamps
+    daystrings <- substr(x$tBeg, 1, 9)
+
+    # The time series of two consecutive files overlap. Keep only the data that
+    # refers to the day (delete the last rows representing the next day)
+    x <- kwb.utils::catAndRun(
+      dbg = dbg,
+      sprintf("Keeping only rows of day '%s'", daystrings[1]),
+      x[daystrings == daystrings[1], ]
+    )
+  }
 
   # Define function that converts the text timestamps to POSIXct objects
   to_posix <- function(xx) {
