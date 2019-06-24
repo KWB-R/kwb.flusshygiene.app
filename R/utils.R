@@ -90,19 +90,6 @@ get_environment_variable <- function(x)
   content
 }
 
-# list_files_on_ftp_server -----------------------------------------------------
-list_files_on_ftp_server <- function(user_pwd)
-{
-  url <- "ftp://ftp.kompetenz-wasser.de/"
-
-  info_block <- RCurl::getURL(url, userpwd = user_pwd)
-
-  info_lines <- unlist(strsplit(info_block, "\n-rw-r--r--"))
-
-  # Extract column number 9 containing the file names
-  sapply(strsplit(info_lines, "\\s+"), "[[", 9)
-}
-
 # round_2 ----------------------------------------------------------------------
 round_2 <- function(x)
 {

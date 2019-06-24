@@ -35,10 +35,13 @@ Imports:
     RCurl,
     dplyr,
     kwb.datetime,
+    kwb.dwd,
     kwb.utils,
     lubridate,
     stringr,
     rlang,
     fst
 Remotes:
-    github::kwb-r/kwb.datetime
+    github::kwb-r/kwb.datetime@dev,
+    github::kwb-r/kwb.dwd@dev,
+    github::kwb-r/kwb.utils@dev

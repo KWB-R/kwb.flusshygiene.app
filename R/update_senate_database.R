@@ -11,20 +11,19 @@ update_senate_database <- function(root, user_pwd)
 {
   #kwb.utils::assignPackageObjects("kwb.flusshygiene.app")
 
-  # Create download folder if necessary
-  path_senate <- kwb.utils::createDirectory(file.path(root, "downloads", "senate"))
+  # Create folder structure as necessary
+  paths <- create_folder_structure(root)
 
-  # Create database folder if necessary
-  kwb.utils::createDirectory(file.path(root, "database"))
+  download_dir <- paths$downloads_senate
 
   # List all files that are available locally
-  files_before <- dir(path_senate, full.names = TRUE)
+  files_before <- dir(download_dir, full.names = TRUE)
 
   # Download new data from the senate's ftp server
-  ftp_download_senate_file_today(path_senate, user_pwd)
+  ftp_download_senate_file_today(download_dir, user_pwd)
 
   # List all files that are available locally
-  files_after <- dir(path_senate, full.names = TRUE)
+  files_after <- dir(download_dir, full.names = TRUE)
 
   # Determine the new files that have been downloaded
   new_files <- setdiff(files_after, files_before)
@@ -75,7 +74,7 @@ read_flows_from_files <- function(files)
   # Exclude NULL elements (if a file did not exactly contain two headers)
   Q_list <- kwb.utils::excludeNULL(lapply(files, read_flows))
 
-  # 3. Collect the "TW" elements and the SW elements and combine and clean them
+  # Collect the "TW" elements and the SW elements and combine and clean them
   TW <- bind_and_clean(lapply(Q_list, kwb.utils::selectElements, "TW"))
   SW <- bind_and_clean(lapply(Q_list, kwb.utils::selectElements, "SW"))
 
