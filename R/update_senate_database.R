@@ -74,7 +74,7 @@ read_flows_from_files <- function(files)
   # Exclude NULL elements (if a file did not exactly contain two headers)
   Q_list <- kwb.utils::excludeNULL(lapply(files, read_flows))
 
-  # 3. Collect the "TW" elements and the SW elements and combine and clean them
+  # Collect the "TW" elements and the SW elements and combine and clean them
   TW <- bind_and_clean(lapply(Q_list, kwb.utils::selectElements, "TW"))
   SW <- bind_and_clean(lapply(Q_list, kwb.utils::selectElements, "SW"))
 
