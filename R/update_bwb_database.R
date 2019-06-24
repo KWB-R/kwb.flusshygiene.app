@@ -24,11 +24,11 @@ update_bwb_database <- function(root, user_pwd, dbg = TRUE)
 
   download_dir <- paths$downloads_bwb
 
-  file_bwb_database_fst <- db_path(root, "rain-ruhleben.fst")
-  file_bwb_database_csv <- db_path(root, "rain-ruhleben.csv")
+  db_file_fst <- db_path(root, "rain-ruhleben.fst")
+  db_file_csv <- db_path(root, "rain-ruhleben.csv")
 
   # Get paths to files that are available locally
-  files_bwb <- dir(download_dir, full.names = TRUE)
+  files_bwb <- dir(download_dir, "^Regenschreiber_.*\\.txt$", full.names = TRUE)
 
   if (length(files_bwb) == 0) {
 
@@ -37,15 +37,15 @@ update_bwb_database <- function(root, user_pwd, dbg = TRUE)
 
   } else {
 
-    if (file.exists(file_bwb_database_fst)) {
+    if (file.exists(db_file_fst)) {
 
-      bwb_data <- fst::read.fst(file_bwb_database_fst)
+      bwb_data <- fst::read.fst(db_file_fst)
 
     } else {
 
       bwb_data <- read_rain_from_files(files = files_bwb, dbg = dbg)
 
-      fst::write_fst(bwb_data, file_bwb_database_fst)
+      fst::write_fst(bwb_data, db_file_fst)
     }
 
     start_day <- lubridate::as_date(min(bwb_data$tBeg))
@@ -53,7 +53,7 @@ update_bwb_database <- function(root, user_pwd, dbg = TRUE)
 
   # Define the files that have to be downloaded
 
-  # - days that have been downloaded
+  # - days that are already in the download folder
   existing_days <- extract_date_string(basename(files_bwb))
 
   # - all days from start day until today
@@ -62,43 +62,32 @@ update_bwb_database <- function(root, user_pwd, dbg = TRUE)
   # - days that need to be downloaded
   missing_days <- setdiff(all_days, existing_days)
 
-  # - days that are available for download
-  ftp_url <- "ftp://ftp.kompetenz-wasser.de/"
-  ftp_files_all <- kwb.dwd::list_url(ftp_url, user_pwd = user_pwd)
-  ftp_files <- grep("^Regenschreiber_", ftp_files_all, value = TRUE)
-
-  # Files that need to be downloaded
-  missing_files <- ftp_files[extract_date_string(ftp_files) %in% missing_days]
-
-  if (length(missing_files) == 0) {
-
-    message("Already up to date.")
-    return()
-  }
-
   # Download files from FTP-Server to a temporary directory and copy them to the
   # rain data directory
-  ftp_download_bwb_files(
-    missing_files,
-    target_dir = download_dir,
-    user_pwd = user_pwd
+  downloaded_files <- ftp_download_bwb_files_of_days(
+    missing_days, target_dir = download_dir, user_pwd = user_pwd
   )
 
   # Read the new files and update the rain "database"
   bwb_data_new <- read_rain_from_files(
-    files = file.path(download_dir, missing_files),
+    files = file.path(download_dir, downloaded_files),
     dbg = dbg
   )
 
-  bwb_data <- dplyr::bind_rows(bwb_data, bwb_data_new)
-  # %>% remove_duplicates_and_reorder()
+  bwb_data <- rbind(bwb_data, bwb_data_new)
 
   stopifnot(! is.unsorted(bwb_data$tBeg))
   stopifnot(sum(duplicated(bwb_data$tBeg)) == 0)
 
   # Save the updated rain "database"
-  fst::write_fst(bwb_data, file_bwb_database_fst)
+  kwb.utils::catAndRun(
+    sprintf("Writing complete BWB data to '%s'", db_file_fst),
+    fst::write_fst(bwb_data, db_file_fst)
+  )
 
   # Save rain "database" as CSV
-  write_input_file(bwb_data, file_bwb_database_csv)
+  kwb.utils::catAndRun(
+    sprintf("Writing complete BWB data to '%s'", db_file_csv),
+    write_input_file(bwb_data, db_file_csv)
+  )
 }

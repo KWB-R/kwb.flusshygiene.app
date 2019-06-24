@@ -1,35 +1,33 @@
-# ftp_download_bwb_files -------------------------------------------------------
-ftp_download_bwb_files <- function(
-  file_names, target_dir, user_pwd, dbg = TRUE
+# ftp_download_bwb_files_of_days -----------------------------------------------
+ftp_download_bwb_files_of_days <- function(
+  missing_days, target_dir, user_pwd, dbg = TRUE
 )
 {
-  if (! length(file_names)) {
+  # - days that are available for download
+  ftp_url <- "ftp://ftp.kompetenz-wasser.de/"
+  ftp_files_all <- kwb.dwd::list_url(ftp_url, userpwd = user_pwd)
+  ftp_files <- grep("^Regenschreiber_", ftp_files_all, value = TRUE)
 
-    cat("No files given.\n")
+  # Files that need to be downloaded
+  missing_files <- ftp_files[extract_date_string(ftp_files) %in% missing_days]
+
+  if (length(missing_files) == 0) {
+
+    message("Already up to date.")
     return()
   }
 
-  url <- sprintf("ftp://%s@ftp.kompetenz-wasser.de", user_pwd)
+  urls <- paste0(ftp_url, missing_files)
 
-  kwb.utils::catAndRun(
-    dbg = dbg,
-    messageText = "Downloading files to temporary directory...",
-    expr = for (file_name in file_names) {
-      destfile <- file.path(tempdir(), file_name)
-      download_file(file.path(url, file_name), destfile, dbg)
-    }
-  )
+  credential_urls <- gsub("://", sprintf("://%s@", user_pwd), urls)
 
-  # Copy the files from the temporary directory to the target directory
-  kwb.utils::catAndRun(
-    dbg = dbg,
-    messageText = paste("Copying files to", target_dir),
-    expr = file.copy(
-      from = file.path(tempdir(), file_names),
-      to = file.path(target_dir, file_names)
-      #to = file.path(target_dir, paste0(extract_date_string(file_names), ".txt"))
-    )
-  )
+  # Loop through URLs with credentials added
+  for (url in credential_urls) {
+
+    download_file(url, file.path(target_dir, basename(url)), dbg = dbg)
+  }
+
+  missing_files
 }
 
 # extract_date_string ----------------------------------------------------------
