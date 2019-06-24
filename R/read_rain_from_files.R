@@ -1,14 +1,18 @@
 # read_rain_from_files ---------------------------------------------------------
 read_rain_from_files <- function(files, dbg = TRUE)
 {
-  # Read all those files and give consistent column names (dangerous!)
+  # Read all given files
   rain <- lapply(files, read_bwb_file, dbg = dbg)
 
   # Name the list elements by the corresponding file names
   names(rain) <- basename(files)
 
-  # 2. Combine all file contents to one data frame
-  rain <- dplyr::bind_rows(rain, .id = "file")
+  # Combine all file contents in one data frame
+  rain <- kwb.utils::catAndRun(
+    sprintf("Combining contents of %d files", length(rain)), {
+      dplyr::bind_rows(rain, .id = "file")
+    }
+  )
 
   # There should not be duplicates and the data should be sorted by time!
   stopifnot(! any(duplicated(rain$tBeg)))
