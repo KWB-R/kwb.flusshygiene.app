@@ -4,10 +4,19 @@
 \alias{read_flows}
 \title{Read Flow Data from File}
 \usage{
-read_flows(file)
+read_flows(file, columns = c("DateTime", "Flow"), switches = TRUE,
+  fileEncoding = "Windows-1252")
 }
 \arguments{
 \item{file}{path to text file containing flow data}
+
+\item{columns}{names of columns to be selected. Default:
+\code{c("DateTime", "Flow")}. Set to \code{NULL} to get all columns}
+
+\item{switches}{passed to \code{\link[kwb.datetime]{textToEuropeBerlinPosix}}}
+
+\item{fileEncoding}{encoding used in \code{file}. Default:
+\code{"Windows-1252"}}
 }
 \description{
 Read Flow Data from File
