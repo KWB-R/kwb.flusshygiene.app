@@ -17,9 +17,11 @@ read_flows <- function(
 {
   # Open a connection to the text file (in order to set the encoding)
   con <- file(file, encoding = fileEncoding)
+
+  # Close the connection when exiting this function
   on.exit(close(con))
 
-  # Read the file as text c.names.Q
+  # Read the file as text
   text_lines <- readLines(con)
 
   # Find the header rows in the file (exactly two expected!)
@@ -27,17 +29,26 @@ read_flows <- function(
 
   stopifnot(length(header_rows) == 2)
 
-  # Determine the row numbers belonging to Sophienwerder (SW) and Tiefwerder
-  # (TW), respectively
-  text_sophienwerder <- text_lines[header_rows[1]:(header_rows[2] - 1)]
-  text_tiefwerder <- text_lines[header_rows[2]:(length(text_lines) - 1)]
+  # Return a data frames with columns
+  # - site: one of "sophienwerder", "tiefwerder"
+  # - DateTime: POSIXct object in time zone Europe/Berlin
+  # - Flow: flow in m3/s
 
-  # Return a list of two data frames (one representing Sopienwerder and one
-  # representing Tiefwerder), each of which has two columns: "DateTime" and
-  # "Flow"
-  list(
-    SW = lines_to_flow_data(text_sophienwerder, columns, switches),
-    TW = lines_to_flow_data(text_tiefwerder, columns, switches)
+  data_sophienwerder <- lines_to_flow_data(
+    x = text_lines[header_rows[1]:(header_rows[2] - 1)],
+    columns = columns,
+    switches = switches
+  )
+
+  data_tiefwerder <- lines_to_flow_data(
+    x = text_lines[header_rows[2]:(length(text_lines) - 1)],
+    columns = columns,
+    switches = switches
+  )
+
+  rbind(
+    cbind(data_sophienwerder, site = "sophienwerder"),
+    cbind(data_tiefwerder, site = "tiefwerder")
   )
 }
 

@@ -35,27 +35,20 @@ update_senate_database <- function(root, user_pwd)
   }
 
   # Read data from the new files
-  new_data_list <- read_flows_from_files(files = new_files)
+  new_flows <- read_flows_from_files(files = new_files)
 
   # Define paths to fst files
-  file_database_TW <- db_path(root, "flow-tiefwerder.fst")
-  file_database_SW <- db_path(root, "flow-sophienwerder.fst")
+  file_database <- db_path(root, "flows.fst")
 
   # Read existing data from fst files (NULL if fst files do not exist)
-  data_TW <- if (file.exists(file_database_TW)) fst::read_fst(file_database_TW)
-  data_SW <- if (file.exists(file_database_SW)) fst::read_fst(file_database_SW)
+  old_flows <- if (file.exists(file_database)) fst::read_fst(file_database)
 
   # Append new data
-  data_TW <- merge_flow_data(data_TW, new_data_list$TW)
-  data_SW <- merge_flow_data(data_SW, new_data_list$SW)
+  flows <- rbind(old_flows, new_flows)
 
-  # Update the databases (fst files)
-  fst::write_fst(data_TW, file_database_TW)
-  fst::write_fst(data_SW, file_database_SW)
-
-  # Update the databases (CSV files)
-  write_input_file(data_TW, db_path(root, "flow-tiefwerder.csv"))
-  write_input_file(data_SW, db_path(root, "flow-sophienwerder.csv"))
+  # Update the database files (fst and csv)
+  fst::write_fst(flows, file_database)
+  write_input_file(flows, db_path(root, "flows.csv"))
 }
 
 # merge_flow_data --------------------------------------------------------------
@@ -69,17 +62,57 @@ merge_flow_data <- function(data, new_data)
 # read_flows_from_files --------------------------------------------------------
 read_flows_from_files <- function(files)
 {
-  # Read the new files into a list of lists. Each sublist contains two
-  # data frames, one for Tiefwerder (TW) and one for Sophienwerder (SW).
-  # Exclude NULL elements (if a file did not exactly contain two headers)
-  Q_list <- kwb.utils::excludeNULL(lapply(files, read_flows))
+  # Read the new files into a list of data frames each of which contains the
+  # data from one input file and each of which has data for both sites,
+  # "sophienwerder" and "tiefwerder", indicated by the value in column "site".
+  # Name the list elements by the file names
+  flows_list <- stats::setNames(lapply(files, read_flows), nm = basename(files))
 
-  # Collect the "TW" elements and the SW elements and combine and clean them
-  TW <- bind_and_clean(lapply(Q_list, kwb.utils::selectElements, "TW"))
-  SW <- bind_and_clean(lapply(Q_list, kwb.utils::selectElements, "SW"))
+  # Exclude NULL elements (if a file did not contain exactly two headers)
+  flows_list <- kwb.utils::excludeNULL(flows_list)
+
+  # Row-bind the data frames and keep the file name in column "file"
+  flows <- dplyr::bind_rows(.id = "file", flows_list)
+
+  # Split flow data into two data frames, one for each site
+  flows_by_site <- split(flows, flows$site)
+
+  # Check for duplicates within each site
+  partial_duplicates <- lapply(
+    X = flows_by_site,
+    FUN = kwb.utils::findPartialDuplicates,
+    key_columns = c("file", "DateTime", "site")
+  )
+
+  if (any(! sapply(partial_duplicates, is.null))) {
+
+    message("There are unexpected partial duplicates in the flow data:")
+    cat(capture.output(str(partial_duplicates)))
+  }
+
+  # Remove duplicates
+  is_duplicated <- duplicated(kwb.utils::selectColumns(flows, c("site", "DateTime")))
+
+  flows <- kwb.utils::catAndRun(
+    sprintf("Removing %d duplicated rows in flow data", sum(is_duplicated)),
+    flows[! is_duplicated, ]
+  )
+
+  message("Range of flow values:")
+  print(lapply(split(flows, flows$site), function(data) range(data$Flow)))
 
   # high negative flow on june 23th --> False measurement?
-  TW[which(TW$Flow < -10), ] <- NA
+  which_too_low <- which(flows$site == "tiefwerder" & flows$Flow < -10)
 
-  list(TW = TW, SW = SW)
+  if (length(which_too_low)) {
+
+    kwb.utils::catAndRun(
+      messageText = sprintf(
+        "Setting Flow %d-times to NA where Flow < -10", length(which_too_low)
+      ),
+      expr = flows$Flow[which_too_low] <- NA
+    )
+  }
+
+  flows
 }
