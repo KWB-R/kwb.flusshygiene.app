@@ -93,13 +93,23 @@ read_flows_from_files <- function(files)
   # Remove duplicates
   is_duplicated <- duplicated(kwb.utils::selectColumns(flows, c("site", "DateTime")))
 
-  flows <- kwb.utils::catAndRun(
-    sprintf("Removing %d duplicated rows in flow data", sum(is_duplicated)),
-    flows[! is_duplicated, ]
-  )
+  if (any(is_duplicated)) {
+
+    flows <- kwb.utils::catAndRun(
+      sprintf("Removing %d duplicated rows in flow data", sum(is_duplicated)),
+      flows[! is_duplicated, ]
+    )
+
+    flows_by_site <- split(flows, flows$site)
+  }
+
+  message("Time ranges with constant time step:")
+  print(lapply(flows_by_site, function(data) kwb.datetime::getEqualStepRanges(
+    data$DateTime
+  )))
 
   message("Range of flow values:")
-  print(lapply(split(flows, flows$site), function(data) range(data$Flow)))
+  print(lapply(flows_by_site, function(data) range(data$Flow)))
 
   # high negative flow on june 23th --> False measurement?
   which_too_low <- which(flows$site == "tiefwerder" & flows$Flow < -10)
