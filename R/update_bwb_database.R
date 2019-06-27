@@ -69,12 +69,16 @@ update_bwb_database <- function(root, user_pwd, dbg = TRUE)
   )
 
   # Read the new files and update the rain "database"
-  bwb_data_new <- read_rain_from_files(
+  if (length(downloaded_files) == 0) {
+
+    message("No files have been downloaded.")
+    return()
+  }
+
+  bwb_data <- rbind(bwb_data, read_rain_from_files(
     files = file.path(download_dir, downloaded_files),
     dbg = dbg
-  )
-
-  bwb_data <- rbind(bwb_data, bwb_data_new)
+  ))
 
   stopifnot(! is.unsorted(bwb_data$tBeg))
   stopifnot(sum(duplicated(bwb_data$tBeg)) == 0)
