@@ -65,10 +65,5 @@ read_bwb_file <- function(file, first_day_only = TRUE, dbg = TRUE)
   stopifnot(all(sapply(x, inherits, "POSIXct")[1:2]))
   stopifnot(all(sapply(x, is.numeric)[-(1:2)]))
 
-  # Check for duplicated times
-  if (! kwb.datetime::isValidTimestampSequence(x$tBeg)) {
-    message("Column 'tBeg' does not contain a valid timestamp sequence.")
-  }
-
   x
 }

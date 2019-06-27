@@ -2,7 +2,15 @@
 read_rain_from_files <- function(files, dbg = TRUE)
 {
   # Read all given files
-  rain <- lapply(files, read_bwb_file, dbg = dbg)
+  rain <- lapply(seq_along(files), function(i) {
+
+    file <- files[i]
+
+    kwb.utils::catAndRun(
+      sprintf("Reading file %d/%d: '%s'", i, length(files), basename(file)),
+      expr = read_bwb_file(file, dbg = FALSE)
+    )
+  })
 
   # Name the list elements by the corresponding file names
   names(rain) <- basename(files)

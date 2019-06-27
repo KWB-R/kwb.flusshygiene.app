@@ -8,11 +8,12 @@
 #' @param switches passed to \code{\link[kwb.datetime]{textToEuropeBerlinPosix}}
 #' @param fileEncoding encoding used in \code{file}. Default:
 #'   \code{"Windows-1252"}
+#' @param dbg if \code{TRUE} (default) debug messages are shown
 #' @export
 #'
 read_flows <- function(
   file, columns = c("DateTime", "Flow"), switches = TRUE,
-  fileEncoding = "Windows-1252"
+  fileEncoding = "Windows-1252", dbg = TRUE
 )
 {
   # Open a connection to the text file (in order to set the encoding)
@@ -22,33 +23,43 @@ read_flows <- function(
   on.exit(close(con))
 
   # Read the file as text
-  text_lines <- readLines(con)
+  kwb.utils::catAndRun(
+    dbg = dbg,
+    sprintf(
+      "Reading flow data from '%s/%s'", basename(dirname(file)), basename(file)
+    ),
+    expr = {
 
-  # Find the header rows in the file (exactly two expected!)
-  header_rows <- find_header_rows(text_lines, file)
+      # Read the file as text
+      text_lines <- readLines(con)
 
-  stopifnot(length(header_rows) == 2)
+      # Find the header rows in the file (exactly two expected!)
+      header_rows <- find_header_rows(text_lines, file)
 
-  # Return a data frames with columns
-  # - site: one of "sophienwerder", "tiefwerder"
-  # - DateTime: POSIXct object in time zone Europe/Berlin
-  # - Flow: flow in m3/s
+      stopifnot(length(header_rows) == 2)
 
-  data_sophienwerder <- lines_to_flow_data(
-    x = text_lines[header_rows[1]:(header_rows[2] - 1)],
-    columns = columns,
-    switches = switches
-  )
+      # Return a data frames with columns
+      # - site: one of "sophienwerder", "tiefwerder"
+      # - DateTime: POSIXct object in time zone Europe/Berlin
+      # - Flow: flow in m3/s
 
-  data_tiefwerder <- lines_to_flow_data(
-    x = text_lines[header_rows[2]:(length(text_lines) - 1)],
-    columns = columns,
-    switches = switches
-  )
+      data_sophienwerder <- lines_to_flow_data(
+        x = text_lines[header_rows[1]:(header_rows[2] - 1)],
+        columns = columns,
+        switches = switches
+      )
 
-  rbind(
-    cbind(data_sophienwerder, site = "sophienwerder"),
-    cbind(data_tiefwerder, site = "tiefwerder")
+      data_tiefwerder <- lines_to_flow_data(
+        x = text_lines[header_rows[2]:(length(text_lines) - 1)],
+        columns = columns,
+        switches = switches
+      )
+
+      rbind(
+        cbind(data_sophienwerder, site = "sophienwerder"),
+        cbind(data_tiefwerder, site = "tiefwerder")
+      )
+    }
   )
 }
 
@@ -114,6 +125,13 @@ lines_to_flow_data <- function(
     "RunoffValue", "RunoffStatus", "RunoffIntpol", "X", "Remarks"
   )
 
+  # Remove column "X" that is expected to be empty
+  if (all(kwb.utils::isNaOrEmpty(kwb.utils::selectColumns(data, "X")))) {
+    data <- kwb.utils::removeColumns(data, "X", dbg = FALSE)
+  } else {
+    message("Column 'X' is not empty as expected and thus kept!")
+  }
+
   attr(data, "units") <- list(
     Flow = "m3/s",
     RunoffValue = "l/s/km2"
@@ -121,7 +139,8 @@ lines_to_flow_data <- function(
 
   # Convert texts to timestamps with appropriate time conversion function
   data$DateTime <- kwb.datetime::textToEuropeBerlinPosix(
-    data$DateTime, format = "%d.%m.%Y %H:%M:%S", switches = switches
+    data$DateTime, format = "%d.%m.%Y %H:%M:%S", switches = switches,
+    dbg = FALSE
   )
 
   # Return only selected columns unless "columns" is NULL

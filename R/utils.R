@@ -96,15 +96,29 @@ round_2 <- function(x)
   round(x, digits = 2)
 }
 
+# write_fst_file ---------------------------------------------------------------
+write_fst_file <- function(x, file, subject = deparse(substitute(x)))
+{
+  kwb.utils::catAndRun(
+    sprintf("Writing %s to '%s'", subject, file),
+    fst::write_fst(x, file)
+  )
+}
+
 # write_input_file -------------------------------------------------------------
 
 #' Write Data Frame to CSV File
 #'
 #' @param x data frame to be written to CSV file
 #' @param file full path to target file
+#' @param subject text describing the kind of data that is written. This text
+#'   will appear in the debug message
 #' @export
 #'
-write_input_file <- function(x, file)
+write_input_file <- function(x, file, subject = deparse(substitute(x)))
 {
-  utils::write.table(x, file, sep = ";", dec = ".", row.names = FALSE)
+  kwb.utils::catAndRun(
+    sprintf("Writing %s to '%s'", subject, file),
+    utils::write.table(x, file, sep = ";", dec = ".", row.names = FALSE)
+  )
 }

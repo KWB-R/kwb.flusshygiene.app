@@ -4,10 +4,14 @@
 \alias{read_bwb_file}
 \title{Read BWB Rain Data File}
 \usage{
-read_bwb_file(file, dbg = TRUE)
+read_bwb_file(file, first_day_only = TRUE, dbg = TRUE)
 }
 \arguments{
 \item{file}{full path to rain data file}
+
+\item{first_day_only}{if \code{TRUE} (the default) only the data
+of the first day in the file is kept and the data belonging to further days
+are removed. Otherwise everything is returned.}
 
 \item{dbg}{write debug messages if \code{TRUE}}
 }

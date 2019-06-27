@@ -5,7 +5,7 @@
 \title{Read Flow Data from File}
 \usage{
 read_flows(file, columns = c("DateTime", "Flow"), switches = TRUE,
-  fileEncoding = "Windows-1252")
+  fileEncoding = "Windows-1252", dbg = TRUE)
 }
 \arguments{
 \item{file}{path to text file containing flow data}
@@ -17,6 +17,8 @@ read_flows(file, columns = c("DateTime", "Flow"), switches = TRUE,
 
 \item{fileEncoding}{encoding used in \code{file}. Default:
 \code{"Windows-1252"}}
+
+\item{dbg}{if \code{TRUE} (default) debug messages are shown}
 }
 \description{
 Read Flow Data from File
