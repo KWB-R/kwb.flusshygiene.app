@@ -121,7 +121,7 @@ lines_to_flow_data <- function(
 
   # Convert texts to timestamps with appropriate time conversion function
   data$DateTime <- kwb.datetime::textToEuropeBerlinPosix(
-    data$DateTime, switches = switches
+    data$DateTime, format = "%d.%m.%Y %H:%M:%S", switches = switches
   )
 
   # Return only selected columns unless "columns" is NULL
