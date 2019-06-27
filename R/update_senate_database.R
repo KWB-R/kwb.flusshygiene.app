@@ -4,12 +4,12 @@
 #'
 #' @param root path to "root" folder below which to find subfolders "downloads"
 #'   and "database"
-#' @param user_pwd user and password string to access KWB's FTP server
 #' @export
 #'
-update_senate_database <- function(root, user_pwd)
+update_senate_database <- function(root)
 {
   #kwb.utils::assignPackageObjects("kwb.flusshygiene.app")
+  user_pwd <- get_environment_variable("USER_PWD_SENATE")
 
   # Create folder structure as necessary
   paths <- create_folder_structure(root)

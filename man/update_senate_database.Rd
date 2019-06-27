@@ -4,13 +4,11 @@
 \alias{update_senate_database}
 \title{Download New Files and Update Local "Database" of Senate's Data}
 \usage{
-update_senate_database(root, user_pwd)
+update_senate_database(root)
 }
 \arguments{
 \item{root}{path to "root" folder below which to find subfolders "downloads"
 and "database"}
-
-\item{user_pwd}{user and password string to access KWB's FTP server}
 }
 \description{
 Download New Files and Update Local "Database" of Senate's Data

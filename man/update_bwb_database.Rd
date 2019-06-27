@@ -4,13 +4,11 @@
 \alias{update_bwb_database}
 \title{Download New Files and Update Local "Database"}
 \usage{
-update_bwb_database(root, user_pwd, dbg = TRUE)
+update_bwb_database(root, dbg = TRUE)
 }
 \arguments{
 \item{root}{path to "root" folder below which to find subfolders "downloads"
 and "database"}
-
-\item{user_pwd}{user and password string to access KWB's FTP server}
 
 \item{dbg}{if \code{TRUE} debug messages are shown}
 }

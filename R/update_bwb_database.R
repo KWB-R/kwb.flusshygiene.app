@@ -11,13 +11,15 @@
 #'
 #' @param root path to "root" folder below which to find subfolders "downloads"
 #'   and "database"
-#' @param user_pwd user and password string to access KWB's FTP server
 #' @param dbg if \code{TRUE} debug messages are shown
 #' @export
 #'
-update_bwb_database <- function(root, user_pwd, dbg = TRUE)
+update_bwb_database <- function(root, dbg = TRUE)
 {
   #kwb.utils::assignPackageObjects("kwb.flusshygiene.app")
+
+  # Get login information from environment variable
+  user_pwd <- get_environment_variable("USER_PWD_KWB")
 
   # Set the subject (used in debug messages)
   subject <- "BWB data"
