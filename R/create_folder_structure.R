@@ -1,13 +1,16 @@
 # create_folder_structure ------------------------------------------------------
-create_folder_structure <- function(root)
+create_folder_structure <- function(root, dbg = FALSE)
 {
+  # Helper function
+  create_dir <- function(x) kwb.utils::createDirectory(x, dbg = dbg)
+
   # Create download folder if necessary
-  downloads <- kwb.utils::createDirectory(file.path(root, "downloads"))
-  downloads_bwb <- kwb.utils::createDirectory(file.path(downloads, "bwb"))
-  downloads_senate <- kwb.utils::createDirectory(file.path(downloads, "senate"))
+  downloads <- create_dir(file.path(root, "downloads"))
+  downloads_bwb <- create_dir(file.path(downloads, "bwb"))
+  downloads_senate <- create_dir(file.path(downloads, "senate"))
 
   # Create database folder if necessary
-  db <- kwb.utils::createDirectory(file.path(root, "database"))
+  db <- create_dir(file.path(root, "database"))
 
   list(
     downloads = downloads,
