@@ -10,22 +10,24 @@
 #'
 prepare_model_input <- function(rain_ruhleben, tiefwerder)
 {
+  # rain_ruhleben:
+  # Day    Precip1 Precip2 flowRuh
+  # <date> <dbl>   <dbl>   <dbl>
+
+  # tiefwerder:
+  # Day    flowTW
+  # <date> <dbl>
+
   base_input <- rain_ruhleben %>%
     dplyr::full_join(tiefwerder, by = "Day") %>%
     dplyr::arrange(.data$Day)
 
-  result <- base_input
+  # base_input:
+  # Day    Precip1 Precip2 flowRuh flowTW
+  # <date> <dbl>   <dbl>   <dbl>   <dbl>
 
-  for (i in 1:5) {
-
-    shift <- base_input
-    shift$Day <- shift$Day + i
-    colnames(shift)[2:5] <- paste0(colnames(shift)[2:5], "_", i, "d")
-
-    result <- dplyr::full_join(x = result, y = shift, "Day")
-  }
-
-  result %>%
+  base_input %>%
+    add_day_shift_columns(n_days_before = 1:5) %>%
     dplyr::mutate(
       Precip1_2dsum = .data$Precip1_1d + .data$Precip1_2d,
       Precip1_3dsum = .data$Precip1_2dsum + .data$Precip1_3d,
@@ -49,4 +51,25 @@ prepare_model_input <- function(rain_ruhleben, tiefwerder)
       flowTW_5dmean = (.data$flowTW_4dmean * 4 + .data$flowTW_5d) / 5
     ) %>%
     dplyr::arrange(.data$Day)
+}
+
+# add_day_shift_columns --------------------------------------------------------
+add_day_shift_columns <- function(df, n_days_before = 1:5)
+{
+  result <- df
+
+  for (n_days in n_days_before) {
+
+    shift <- df
+    shift$Day <- shift$Day + n_days
+
+    # Append "_1d", "_2d", etc. to all columns except the first (day) column
+    columns <- names(shift)
+    columns[-1] <- sprintf("%s_%dd", columns[-1], n_days, "d")
+    names(shift) <- columns
+
+    result <- dplyr::full_join(result, shift, by = "Day")
+  }
+
+  result
 }
