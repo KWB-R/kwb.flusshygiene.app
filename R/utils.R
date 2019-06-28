@@ -1,9 +1,9 @@
 # add_day_column_from ----------------------------------------------------------
 add_day_column_from <- function(df, column)
 {
-  date_time <- kwb.utils::selectColumns(df, column)
+  days <- lubridate::as_date(kwb.utils::selectColumns(df, column))
 
-  kwb.utils::setColumns(df, Day = lubridate::as_date(date_time))
+  kwb.utils::setColumns(df, Day = days)
 }
 
 # bind_and_clean ---------------------------------------------------------------
