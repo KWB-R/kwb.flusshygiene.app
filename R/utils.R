@@ -90,6 +90,21 @@ get_environment_variable <- function(x)
   content
 }
 
+# remove_column_expected_empty -------------------------------------------------
+remove_column_expected_empty <- function(df, column, dbg = FALSE)
+{
+  if (all(kwb.utils::isNaOrEmpty(kwb.utils::selectColumns(df, column)))) {
+
+    return(kwb.utils::removeColumns(df, column, dbg = dbg, ))
+  }
+
+  message(sprintf(
+    "Column '%s' is not empty as expected and thus kept!", column
+  ))
+
+  df
+}
+
 # round_2 ----------------------------------------------------------------------
 round_2 <- function(x)
 {

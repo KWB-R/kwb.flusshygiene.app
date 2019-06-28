@@ -81,11 +81,7 @@ read_flows_from_files <- function(files)
   flows <- dplyr::bind_rows(.id = "file", flows_list)
 
   # Remove column "Remarks" if it is empty
-  if (all(kwb.utils::isNaOrEmpty(kwb.utils::selectColumns(flows, "Remarks")))) {
-    flows <- kwb.utils::removeColumns(flows, "Remarks", dbg = FALSE)
-  } else {
-    message("Keeping column 'Remarks' as this column is not empty.")
-  }
+  flows <- remove_column_expected_empty(flows, "Remarks")
 
   # Split flow data into two data frames, one for each site
   flows_by_site <- split(flows, flows$site)

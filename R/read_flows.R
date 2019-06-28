@@ -126,11 +126,7 @@ lines_to_flow_data <- function(
   )
 
   # Remove column "X" that is expected to be empty
-  if (all(kwb.utils::isNaOrEmpty(kwb.utils::selectColumns(data, "X")))) {
-    data <- kwb.utils::removeColumns(data, "X", dbg = FALSE)
-  } else {
-    message("Column 'X' is not empty as expected and thus kept!")
-  }
+  data <- remove_column_expected_empty(data, "X")
 
   attr(data, "units") <- list(
     Flow = "m3/s",

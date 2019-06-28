@@ -28,5 +28,6 @@ read_rain_from_files <- function(files, dbg = TRUE)
 
   kwb.utils::printIf(dbg, kwb.datetime::getEqualStepRanges(rain$tBeg))
 
-  rain
+  # Remove (hopefully) empty column "X.1"
+  remove_column_expected_empty(rain, "X.1", dbg = dbg)
 }
