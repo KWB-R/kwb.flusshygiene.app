@@ -4,10 +4,10 @@
 \alias{prepare_tiefwerder}
 \title{Prepare Tiefwerder Data}
 \usage{
-prepare_tiefwerder(tiefwerder)
+prepare_tiefwerder(flows)
 }
 \arguments{
-\item{tiefwerder}{data frame with data from Tiefwerder}
+\item{flows}{data frame with flow data from Tiefwerder and Sophienwerder}
 }
 \description{
 Prepare Tiefwerder Data

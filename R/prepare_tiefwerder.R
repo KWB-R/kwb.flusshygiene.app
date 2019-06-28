@@ -2,12 +2,13 @@
 
 #' Prepare Tiefwerder Data
 #'
-#' @param tiefwerder data frame with data from Tiefwerder
+#' @param flows data frame with flow data from Tiefwerder and Sophienwerder
 #' @export
 #'
-prepare_tiefwerder <- function(tiefwerder)
+prepare_tiefwerder <- function(flows)
 {
-  tiefwerder %>%
+  x <- flows %>%
+    kwb.utils::renameAndSelect(list("DateTime", Q.tiefwerder = "Flow")) %>%
     handle_negative_flows() %>%
     summarise_tiefwerder() %>%
     add_missing_tiefwerder_flows()
@@ -16,8 +17,20 @@ prepare_tiefwerder <- function(tiefwerder)
 # handle_negative_flows --------------------------------------------------------
 handle_negative_flows <- function(tiefwerder)
 {
-  # Set values below 0 to 0
-  tiefwerder$Flow[tiefwerder$Flow < 0 & ! is.na(tiefwerder$Flow)] <- 0
+  # Where are the flow values negative?
+  which_negative <- which(tiefwerder$Flow < 0)
+
+  n_negative <- length(which_negative)
+
+  if (n_negative) {
+
+    message(sprintf("Setting %d negative flow values to 0:", n_negative))
+
+    print(tiefwerder[which_negative, ])
+
+    # Set values below 0 to 0
+    tiefwerder$Flow[which_negative] <- 0
+  }
 
   tiefwerder
 }
@@ -36,7 +49,7 @@ summarise_tiefwerder <- function(tiefwerder)
 # add_missing_tiefwerder_flows -------------------------------------------------
 add_missing_tiefwerder_flows <- function(tiefwerder)
 {
-  flow_data <- data.frame(Day = lubridate::as_date("2017-07-14"), flowTW = 45)
-
-  rbind(tiefwerder, flow_data)
+  tiefwerder %>%
+    rbind(data.frame(Day = as.Date("2017-07-14"), flowTW = 45)) %>%
+    dplyr::arrange(.data$Day)
 }
