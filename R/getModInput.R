@@ -1,7 +1,11 @@
 # getModInput ------------------------------------------------------------------
 
 #' Create the Model Input List
-#' @keywords internal
+#'
+#' @param x data frame
+#' @param logRain logical
+#' @param fittingData logical
+#' @export
 #'
 getModInput <- function(x, logRain = TRUE, fittingData = TRUE)
 {

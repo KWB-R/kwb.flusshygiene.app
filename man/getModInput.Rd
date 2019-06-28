@@ -6,7 +6,13 @@
 \usage{
 getModInput(x, logRain = TRUE, fittingData = TRUE)
 }
+\arguments{
+\item{x}{data frame}
+
+\item{logRain}{logical}
+
+\item{fittingData}{logical}
+}
 \description{
 Create the Model Input List
 }
-\keyword{internal}
