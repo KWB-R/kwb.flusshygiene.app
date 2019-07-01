@@ -23,6 +23,12 @@ bind_and_clean <- function(x)
   x[! duplicated(x$DateTime), ]
 }
 
+# clean_stop -------------------------------------------------------------------
+clean_stop <- function(...)
+{
+  stop(call. = FALSE, ...)
+}
+
 # db_path ----------------------------------------------------------------------
 
 #' Path to "Database" File

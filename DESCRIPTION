@@ -28,19 +28,20 @@ BugReports: https://github.com/KWB-R/kwb.flusshygiene.app/issues
 Encoding: UTF-8
 LazyData: true
 Suggests: 
-    covr
+    covr (>= 3.2.1)
 RoxygenNote: 6.1.1
 Imports: 
-    magrittr,
-    RCurl,
-    dplyr,
-    kwb.datetime,
-    kwb.dwd,
-    kwb.utils,
-    lubridate,
-    stringr,
-    rlang,
-    fst
+    magrittr (>= 1.5),
+    RCurl (>= 1.95.4.11),
+    dplyr (>= 0.8.0.1),
+    kwb.datetime (>= 0.3.1.9000),
+    kwb.dwd (>= 0.0.0.9000),
+    kwb.utils (>= 0.4.2.9000),
+    lubridate (>= 1.7.4),
+    rstanarm (>= 2.18.2),
+    stringr (>= 1.4.0),
+    rlang (>= 0.3.4),
+    fst (>= 0.8.10)
 Remotes:
     github::kwb-r/kwb.datetime@dev,
     github::kwb-r/kwb.dwd@dev,
