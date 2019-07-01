@@ -22,6 +22,7 @@ Description: R Package Implementing the Flusshygiene
     Application. This package provides the functions required to setup the
     web application as it was developed during the KWB project
     'Flusshygiene'.
+Depends: R (>= 3.0.0)
 License: MIT + file LICENSE
 URL: https://github.com/KWB-R/kwb.flusshygiene.app
 BugReports: https://github.com/KWB-R/kwb.flusshygiene.app/issues
@@ -31,17 +32,18 @@ Suggests:
     covr (>= 3.2.1)
 RoxygenNote: 6.1.1
 Imports: 
-    magrittr (>= 1.5),
-    RCurl (>= 1.95.4.11),
     dplyr (>= 0.8.0.1),
+    fst (>= 0.8.10),
+    httr (>= 1.4.0),
     kwb.datetime (>= 0.3.1.9000),
     kwb.dwd (>= 0.0.0.9000),
     kwb.utils (>= 0.4.2.9000),
     lubridate (>= 1.7.4),
-    rstanarm (>= 2.18.2),
-    stringr (>= 1.4.0),
+    magrittr (>= 1.5),
+    RCurl (>= 1.95.4.11),
     rlang (>= 0.3.4),
-    fst (>= 0.8.10)
+    rstanarm (>= 2.18.2),
+    stringr (>= 1.4.0)
 Remotes:
     github::kwb-r/kwb.datetime@dev,
     github::kwb-r/kwb.dwd@dev,

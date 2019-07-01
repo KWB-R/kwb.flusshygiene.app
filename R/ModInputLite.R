@@ -17,6 +17,20 @@ ModInputLite <- function(ModInput, model)
   # Filter the regressors of the selected Model
   columns <- c(input_names[1], intersect(input_names, variable_names))
 
+  result <- ModInput[, columns, drop = FALSE]
+
   # Select only relevant columns and remove rows containing NA
-  stats::na.omit(ModInput[, columns])
+  is_complete <- stats::complete.cases(result)
+
+  if (any(! is_complete)) {
+
+    message(
+      "There are NA values in the model input. The corresponding rows are ",
+      "removed:"
+    )
+
+    print(result[! is_complete, , drop = FALSE])
+  }
+
+  result[is_complete, , drop = FALSE]
 }
