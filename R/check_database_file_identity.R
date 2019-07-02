@@ -1,6 +1,6 @@
 # check_database_file_identity -------------------------------------------------
 
-#' Check Identity of Database Files (fst versus cvs)
+#' Check Identity of Database Files (fst versus csv)
 #'
 #' @export
 #'
