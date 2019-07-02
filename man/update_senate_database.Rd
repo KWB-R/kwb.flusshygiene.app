@@ -4,12 +4,24 @@
 \alias{update_senate_database}
 \title{Download New Files and Update Local "Database" of Senate's Data}
 \usage{
-update_senate_database(root)
+update_senate_database(root = get_root())
 }
 \arguments{
 \item{root}{path to "root" folder below which to find subfolders "downloads"
 and "database"}
 }
 \description{
-Download New Files and Update Local "Database" of Senate's Data
+\enumerate{
+  \item If database/flows.fst exists, load a data frame from there
+  \item If database/flows.fst does not exist, read all files in
+    downloads/senate/ into a data frame and save this data frame in
+    database/flows.fst as well as in database/flows.csv
+  \item Download one new file into downloads/senate/
+  \item Read the downloaded file int a data frame containing data for both
+    sites, Sophienwerder and Tiefwerder
+  \item Row-bind the data frame read in 4) with the data frame loaded in 1)
+    or read in 2)
+  \item Save the data frame resulting from 5) in database/flows.fst as well
+    as in database/flows.csv
+}
 }

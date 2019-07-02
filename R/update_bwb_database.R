@@ -2,19 +2,29 @@
 
 #' Download New Files and Update Local "Database"
 #'
-#' This function checks for files that are available on KWB's FTP server and
-#' that are not yet contained in the download folder <root>/downloads/bwb/. It
-#' downloads new files from the FTP server into the download folder. New data
-#' are read from the downloaded files and appended to the "database", i.e. to
-#' two files in <root>/database/: 'rain-ruhleben.fst' (to be read with
-#' fst::read.fst) and 'rain-ruhleben.csv'.
+#' \enumerate{
+#'   \item If database/bwb/rain-ruhleben.fst exists, load a data frame
+#'     from there
+#'   \item If database/bwb/rain-ruhleben.fst does not exist, read all
+#'     files in downloads/bwb/ into a data frame and save this data frame in
+#'     database/rain-ruhleben.fst as well as in database/rain-ruhleben.csv
+#'   \item Determine the days for which files are available in downloads/bwb/
+#'   \item Determine the days for which files need to be downloaded and provide
+#'     the corresponding URLs \item Download the files from the URLs determined
+#'     in 4) into downloads/bwb/
+#'   \item Read the downloaded files into a data frame
+#'   \item Row-bind the data frame read in 6) with the data frame loaded in 1)
+#'     or read in 2)
+#'   \item Save the data frame resulting from 7) in database/rain-ruhleben.fst
+#'     as well as in database/rain-ruhleben.csv
+#' }
 #'
 #' @param root path to "root" folder below which to find subfolders "downloads"
 #'   and "database"
 #' @param dbg if \code{TRUE} debug messages are shown
 #' @export
 #'
-update_bwb_database <- function(root, dbg = TRUE)
+update_bwb_database <- function(root = get_root(), dbg = TRUE)
 {
   #kwb.utils::assignPackageObjects("kwb.flusshygiene.app")
 
@@ -29,8 +39,8 @@ update_bwb_database <- function(root, dbg = TRUE)
 
   download_dir <- paths$downloads_bwb
 
-  db_file_fst <- db_path(root, "rain-ruhleben.fst")
-  db_file_csv <- db_path(root, "rain-ruhleben.csv")
+  db_file_fst <- db_path("rain-ruhleben.fst", root)
+  db_file_csv <- db_path("rain-ruhleben.csv", root)
 
   # Get paths to files that are available locally
   files_bwb <- dir(download_dir, "^Regenschreiber_.*\\.txt$", full.names = TRUE)

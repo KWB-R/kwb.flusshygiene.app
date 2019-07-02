@@ -2,11 +2,25 @@
 
 #' Download New Files and Update Local "Database" of Senate's Data
 #'
+#' \enumerate{
+#'   \item If database/flows.fst exists, load a data frame from there
+#'   \item If database/flows.fst does not exist, read all files in
+#'     downloads/senate/ into a data frame and save this data frame in
+#'     database/flows.fst as well as in database/flows.csv
+#'   \item Download one new file into downloads/senate/
+#'   \item Read the downloaded file int a data frame containing data for both
+#'     sites, Sophienwerder and Tiefwerder
+#'   \item Row-bind the data frame read in 4) with the data frame loaded in 1)
+#'     or read in 2)
+#'   \item Save the data frame resulting from 5) in database/flows.fst as well
+#'     as in database/flows.csv
+#' }
+#'
 #' @param root path to "root" folder below which to find subfolders "downloads"
 #'   and "database"
 #' @export
 #'
-update_senate_database <- function(root)
+update_senate_database <- function(root = get_root())
 {
   #kwb.utils::assignPackageObjects("kwb.flusshygiene.app")
   user_pwd <- get_environment_variable("USER_PWD_SENATE")
@@ -29,7 +43,7 @@ update_senate_database <- function(root)
   new_files <- setdiff(files_after, files_before)
 
   # Path to flow database
-  file_database <- db_path(root, "flows.fst")
+  file_database <- db_path("flows.fst", root)
 
   # Does the database already exist?
   db_exists <- file.exists(file_database)
@@ -59,7 +73,7 @@ update_senate_database <- function(root)
   # Update the database files (fst and csv)
   subject <- "flow data"
   write_fst_file(flows, file_database, subject)
-  write_input_file(flows, db_path(root, "flows.csv"), subject)
+  write_input_file(flows, db_path("flows.csv", root), subject)
 }
 
 # read_flows_from_files --------------------------------------------------------
