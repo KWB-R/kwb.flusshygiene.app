@@ -3,7 +3,6 @@
 export("%>%")
 export(ModInputLite)
 export(add_average_rain_columns)
-export(bind_and_clean)
 export(check_database_file_identity)
 export(day_strings_until_today)
 export(db_path)

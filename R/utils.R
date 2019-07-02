@@ -6,23 +6,6 @@ add_day_column_from <- function(df, column)
   kwb.utils::setColumns(df, Day = days)
 }
 
-# bind_and_clean ---------------------------------------------------------------
-
-#' Row-Bind and Clean Time Series in Data Frames
-#'
-#' @param x list of data frames each of which contains a column \code{DateTime}
-#' @export
-#'
-bind_and_clean <- function(x)
-{
-  x <- dplyr::bind_rows(x)
-
-  x <- x[! is.na(x$DateTime), ] %>% dplyr::arrange(.data$DateTime)
-
-  # Exclude duplicates by keeping rows with non-duplicated times
-  x[! duplicated(x$DateTime), ]
-}
-
 # clean_stop -------------------------------------------------------------------
 clean_stop <- function(...)
 {
