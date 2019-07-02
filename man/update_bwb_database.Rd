@@ -4,11 +4,16 @@
 \alias{update_bwb_database}
 \title{Download New Files and Update Local "Database"}
 \usage{
-update_bwb_database(root = get_root(), dbg = TRUE)
+update_bwb_database(root = get_root(), start_day = "2019-06-15",
+  dbg = TRUE)
 }
 \arguments{
 \item{root}{path to "root" folder below which to find subfolders "downloads"
 and "database"}
+
+\item{start_day}{first day of rain data to be downloaded in case that there
+are no downloaded files yet. Otherwise the first day is the earliest day
+for which data is found in the "downloads/bwb". Default: "2019-06-15"}
 
 \item{dbg}{if \code{TRUE} debug messages are shown}
 }

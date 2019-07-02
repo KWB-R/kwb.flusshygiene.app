@@ -1,4 +1,4 @@
-# ModInputLite -----------------------------------------------------------------
+# reduce_model_input -----------------------------------------------------------
 
 #' Reduce Model Input to Relevant Data
 #'
@@ -6,7 +6,7 @@
 #' @param model model object
 #' @export
 #'
-ModInputLite <- function(ModInput, model)
+reduce_model_input <- function(ModInput, model)
 {
   coefficient_names <- names(model$coefficients)
   variable_names <- unlist(strsplit(coefficient_names, split = ":"))

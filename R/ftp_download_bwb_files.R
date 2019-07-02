@@ -5,7 +5,7 @@ ftp_download_bwb_files_of_days <- function(
 {
   # - days that are available for download
   ftp_url <- "ftp://ftp.kompetenz-wasser.de/"
-  ftp_files_all <- kwb.dwd::list_url(ftp_url, userpwd = user_pwd)
+  ftp_files_all <- kwb.dwd::list_url(ftp_url, userpwd = user_pwd, dbg = FALSE)
   ftp_files <- grep("^Regenschreiber_", ftp_files_all, value = TRUE)
 
   # Files that need to be downloaded

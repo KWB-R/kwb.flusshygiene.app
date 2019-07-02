@@ -1,4 +1,4 @@
-# getModInput ------------------------------------------------------------------
+# get_model_input --------------------------------------------------------------
 
 #' Create the Model Input List
 #'
@@ -7,7 +7,7 @@
 #' @param fittingData logical
 #' @export
 #'
-getModInput <- function(x, logRain = TRUE, fittingData = TRUE)
+get_model_input <- function(x, logRain = TRUE, fittingData = TRUE)
 {
   get <- function(column) kwb.utils::selectColumns(x, column)
 

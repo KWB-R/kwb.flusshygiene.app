@@ -1,9 +1,9 @@
 # add_day_column_from ----------------------------------------------------------
 add_day_column_from <- function(df, column)
 {
-  days <- lubridate::as_date(kwb.utils::selectColumns(df, column))
+  df$Day <- lubridate::as_date(kwb.utils::selectColumns(df, column))
 
-  kwb.utils::setColumns(df, Day = days)
+  df
 }
 
 # clean_stop -------------------------------------------------------------------
@@ -61,19 +61,30 @@ download_file <- function(url, destfile, dbg = TRUE)
 #' Get Environment Variable Giving a Hint on Missing Variables
 #'
 #' @param x name of environment variable
+#' @param do_stop logical. If \code{TRUE} an error is raised if the environment
+#'   variable is not set. Otherwise (the default), a message is shown.
 #' @export
 #'
-get_environment_variable <- function(x)
+get_environment_variable <- function(x, do_stop = FALSE)
 {
   content <- Sys.getenv(x)
 
   if (content == "") {
 
-    message(
+    text <- paste0(
       sprintf("There is no such environment variable '%s'.\n", x),
       "Use the following command to set the variable:\n",
       sprintf("Sys.setenv(%s = \"<value-of-%s>\")", x, x)
     )
+
+    if (do_stop) {
+
+      clean_stop(text)
+
+    } else {
+
+      message(text)
+    }
   }
 
   content
@@ -82,7 +93,7 @@ get_environment_variable <- function(x)
 # get_root ---------------------------------------------------------------------
 get_root <- function()
 {
-  get_environment_variable("FLUSSHYGIENE_ROOT")
+  get_environment_variable("FLUSSHYGIENE_ROOT", do_stop = TRUE)
 }
 
 # remove_column_expected_empty -------------------------------------------------

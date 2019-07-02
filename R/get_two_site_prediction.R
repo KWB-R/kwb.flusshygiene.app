@@ -36,10 +36,10 @@ get_prediction <- function(
 )
 {
   #kwb.utils::assignPackageObjects("kwb.flusshygiene.app")
-  newdata <- ModInputLite(ModInput = d_predict, model)
+  newdata <- reduce_model_input(ModInput = d_predict, model)
 
   if (nrow(newdata) == 0) {
-    message("ModInputLite() did not return any data. Returning NULL!")
+    message("reduce_model_input() did not return any data. Returning NULL!")
     return()
   }
 

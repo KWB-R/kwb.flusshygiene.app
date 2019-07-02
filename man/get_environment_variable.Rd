@@ -4,7 +4,7 @@
 \alias{get_environment_variable}
 \title{Get Environment Variable Giving a Hint on Missing Variables}
 \usage{
-get_environment_variable(x)
+get_environment_variable(x, do_stop = FALSE)
 }
 \arguments{
 \item{x}{name of environment variable}

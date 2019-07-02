@@ -21,12 +21,18 @@
 #'
 #' @param root path to "root" folder below which to find subfolders "downloads"
 #'   and "database"
+#' @param start_day first day of rain data to be downloaded in case that there
+#'   are no downloaded files yet. Otherwise the first day is the earliest day
+#'   for which data is found in the "downloads/bwb". Default: "2019-06-15"
 #' @param dbg if \code{TRUE} debug messages are shown
 #' @export
 #'
-update_bwb_database <- function(root = get_root(), dbg = TRUE)
+update_bwb_database <- function(
+  root = get_root(), start_day = "2019-06-15", dbg = TRUE
+)
 {
   #kwb.utils::assignPackageObjects("kwb.flusshygiene.app")
+  message("Updating the BWB database... (root folder: ", root, ")")
 
   # Get login information from environment variable
   user_pwd <- get_environment_variable("USER_PWD_KWB")
@@ -48,7 +54,7 @@ update_bwb_database <- function(root = get_root(), dbg = TRUE)
   if (length(files_bwb) == 0) {
 
     bwb_data <- NULL
-    start_day <- as.Date("2017-06-22")
+    start_day <- as.Date(start_day)
 
   } else {
 
@@ -96,8 +102,16 @@ update_bwb_database <- function(root = get_root(), dbg = TRUE)
     dbg = dbg
   ))
 
-  stopifnot(! is.unsorted(bwb_data$tBeg))
   stopifnot(sum(duplicated(bwb_data$tBeg)) == 0)
+
+  if (is.unsorted(bwb_data$tBeg)) {
+
+    bwb_data <- kwb.utils::catAndRun(
+      "Sorting bwb data chronologically", {
+        bwb_data[order(bwb_data$tBeg), ]
+      }
+    )
+  }
 
   # Save the updated rain "database" as fst and csv file
   write_fst_file(bwb_data, db_file_fst, subject)
