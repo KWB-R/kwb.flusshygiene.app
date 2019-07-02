@@ -1,3 +1,9 @@
+# add_credentials --------------------------------------------------------------
+add_credentials <- function(url, user_pwd)
+{
+  gsub("://", paste0("://", user_pwd, "@"), url)
+}
+
 # add_day_column_from ----------------------------------------------------------
 add_day_column_from <- function(df, column)
 {

@@ -26,8 +26,6 @@ update_senate_database <- function(root = get_root(), dbg = 1)
   #kwb.utils::assignPackageObjects("kwb.flusshygiene.app")
   message_updating("Senate database", root)
 
-  user_pwd <- get_environment_variable("USER_PWD_SENATE")
-
   # Create folder structure as necessary
   paths <- create_folder_structure(root)
 
@@ -37,7 +35,7 @@ update_senate_database <- function(root = get_root(), dbg = 1)
   files_before <- dir(download_dir, full.names = TRUE)
 
   # Download new data from the senate's ftp server
-  ftp_download_senate_file_today(download_dir, user_pwd)
+  ftp_download_senate_file_today(download_dir)
 
   # List all files that are available locally
   files_after <- dir(download_dir, full.names = TRUE)

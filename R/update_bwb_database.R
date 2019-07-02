@@ -34,9 +34,6 @@ update_bwb_database <- function(
   #kwb.utils::assignPackageObjects("kwb.flusshygiene.app")
   message_updating("BWB database", root)
 
-  # Get login information from environment variable
-  user_pwd <- get_environment_variable("USER_PWD_KWB")
-
   # Set the context (used in debug messages)
   context <- "BWB data"
 
@@ -87,7 +84,7 @@ update_bwb_database <- function(
   # Download files from FTP-Server to a temporary directory and copy them to the
   # rain data directory
   downloaded_files <- ftp_download_bwb_files_of_days(
-    missing_days, target_dir = download_dir, user_pwd = user_pwd
+    missing_days, target_dir = download_dir
   )
 
   # Read the new files and update the rain "database"

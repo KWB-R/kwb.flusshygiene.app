@@ -1,7 +1,8 @@
 # upload_prediction_today ------------------------------------------------------
 upload_prediction_today <- function(file)
 {
-  url <- get_environment_variable("FTP_UPLOAD_TSB")
+  # Get download URL and credentials from environment variables
+  url <- get_environment_variable("FTP_URL_TSB")
   user_pwd <- get_environment_variable("USER_PWD_TSB")
 
   user_pwd_parts <- strsplit(user_pwd, ":")[[1]]

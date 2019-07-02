@@ -2,6 +2,24 @@
 
 #' Update Model Input Data and Predict Water Quality
 #'
+#' This is the main function. It is assumed to be run on a daily basis. It
+#' downloads current rain and flow data, does a simple validation of the data,
+#' prepares the data for the model and runs the model to predict the water
+#' quality.
+#'
+#' The following environment variables need to be set:
+#' \describe{
+#'   \item{FTP_URL_KWB}{URL to KWB's download FTP server}
+#'   \item{FTP_URL_SENATE}{URL to Senate's download FTP server}
+#'   \item{FTP_URL_TSB}{URL to TSB's upload server}
+#'   \item{USER_PWD_KWB}{User name and password for KWB's download FTP server}
+#'   \item{USER_PWD_SENATE}{User name and password for  Senate's download FTP server}
+#'   \item{USER_PWD_TSB}{User name and password for TSB's upload server}
+#' }
+#'
+#' You may use \code{usethis::edit_r_environ()} to open the .Renviron file in
+#' which you can add the corresponding assignments.
+#'
 #' @param day_string day for which to predict the water quality, in format
 #'   yyyy-mm-dd, e.g. "2019-07-01". Default: \code{as.character(Sys.Date())}
 #' @param upload logical. If \code{TRUE} the prediction file
