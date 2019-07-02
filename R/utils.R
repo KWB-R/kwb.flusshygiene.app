@@ -96,6 +96,12 @@ get_environment_variable <- function(x)
   content
 }
 
+# get_root ---------------------------------------------------------------------
+get_root <- function()
+{
+  get_environment_variable("FLUSSHYGIENE_ROOT")
+}
+
 # remove_column_expected_empty -------------------------------------------------
 remove_column_expected_empty <- function(df, column, dbg = FALSE)
 {
@@ -115,6 +121,21 @@ remove_column_expected_empty <- function(df, column, dbg = FALSE)
 round_2 <- function(x)
 {
   round(x, digits = 2)
+}
+
+# set_root ---------------------------------------------------------------------
+
+#' Set the Root Folder of the Flusshygiene App
+#'
+#' The root folder will be stored in the environment variable
+#' "FLUSSHYGIENE_ROOT"
+#'
+#' @param root path to the root folder
+#' @export
+#'
+set_root <- function(root)
+{
+  Sys.setenv(FLUSSHYGIENE_ROOT = root)
 }
 
 # write_fst_file ---------------------------------------------------------------
