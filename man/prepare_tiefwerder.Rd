@@ -4,10 +4,12 @@
 \alias{prepare_tiefwerder}
 \title{Prepare Tiefwerder Data}
 \usage{
-prepare_tiefwerder(flows)
+prepare_tiefwerder(flows, dbg = 1)
 }
 \arguments{
 \item{flows}{data frame with flow data from Tiefwerder and Sophienwerder}
+
+\item{dbg}{debug level. The higher the value, the more verbose the output}
 }
 \description{
 Prepare Tiefwerder Data

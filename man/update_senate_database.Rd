@@ -4,11 +4,13 @@
 \alias{update_senate_database}
 \title{Download New Files and Update Local "Database" of Senate's Data}
 \usage{
-update_senate_database(root = get_root())
+update_senate_database(root = get_root(), dbg = 1)
 }
 \arguments{
 \item{root}{path to "root" folder below which to find subfolders "downloads"
 and "database"}
+
+\item{dbg}{debug level. The higher the value, the more verbose the output}
 }
 \description{
 \enumerate{

@@ -4,15 +4,17 @@
 \alias{write_input_file}
 \title{Write Data Frame to CSV File}
 \usage{
-write_input_file(x, file, subject = deparse(substitute(x)))
+write_input_file(x, file, context = deparse(substitute(x)), sep = ";")
 }
 \arguments{
 \item{x}{data frame to be written to CSV file}
 
 \item{file}{full path to target file}
 
-\item{subject}{text describing the kind of data that is written. This text
+\item{context}{text describing the kind of data that is written. This text
 will appear in the debug message}
+
+\item{sep}{column separator, default: ";"}
 }
 \description{
 Write Data Frame to CSV File

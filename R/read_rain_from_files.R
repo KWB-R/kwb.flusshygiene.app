@@ -26,9 +26,9 @@ read_rain_from_files <- function(files, dbg = TRUE)
   stopifnot(! any(duplicated(rain$tBeg)))
   stopifnot(! is.unsorted(rain$tBeg))
 
-  kwb.utils::printIf(dbg, kwb.datetime::getEqualStepRanges(rain$tBeg))
+  kwb.utils::printIf(dbg > 1, kwb.datetime::getEqualStepRanges(rain$tBeg))
 
   # Remove (hopefully) empty column "X.1" and remove column "file"
-  remove_column_expected_empty(rain, "X.1", dbg = dbg) %>%
+  remove_column_expected_empty(rain, "X.1") %>%
     kwb.utils::removeColumns("file", )
 }

@@ -7,12 +7,15 @@
 #' @param upload logical. If \code{TRUE} the prediction file
 #'   \code{Vorhersage_yyyy-mm-dd.csv} is uploaded to the server of
 #'   Technologiestiftung Berlin (TSB).
+#' @param dbg debug level. The higher the value, the more verbose the output
 #' @export
 #'
 update_data_and_predict <- function(
-  day_string = as.character(Sys.Date()), upload = FALSE
+  day_string = as.character(Sys.Date()), upload = FALSE, dbg = 1
 )
 {
+  #kwb.utils::assignPackageObjects("kwb.flusshygiene.app")
+
   # Update local database of data provided by Berlin Wasserbetriebe (BWB)
   update_bwb_database()
 
@@ -35,14 +38,14 @@ update_data_and_predict <- function(
   # Prepare model input data
   model_input <- prepare_model_input(
     rain_ruhleben = prepare_rain_ruhleben(rain_ruhleben),
-    tiefwerder = prepare_tiefwerder(flows)
+    tiefwerder = prepare_tiefwerder(flows, dbg = dbg)
   )
 
   # Path to model input file
   input_file <- db_path("model_input.csv")
 
   # Write model input file
-  write_input_file(model_input, input_file, "model input")
+  write_input_file(model_input, input_file, context = "model input")
 
   # Check if reading model input data back works
   if (FALSE) {
@@ -57,7 +60,7 @@ update_data_and_predict <- function(
     read_model_input_csv() %>%
     get_model_input(logRain = TRUE, fittingData = FALSE) %>%
     filter_for_day_string(day_string) %>%
-    get_two_site_prediction()
+    get_two_site_prediction(dbg = dbg)
 
   # Save file with prediction of today locally
   file <- save_prediction_today(prediction_today, day_string)

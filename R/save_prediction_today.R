@@ -8,7 +8,12 @@ save_prediction_today <- function(
   filename <- sprintf("Vorhersage_%s.csv", today_string)
   file <- file.path(paths$predictions, filename)
 
-  utils::write.csv(prediction_today, file, row.names = FALSE)
+  write_input_file(
+    x = prediction_today,
+    file = gsub("\\.csv$", "_2.csv", file),
+    context = paste("prediction for", today_string),
+    sep = ","
+  )
 
   file
 }

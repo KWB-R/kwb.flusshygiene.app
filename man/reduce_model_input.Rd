@@ -4,12 +4,15 @@
 \alias{reduce_model_input}
 \title{Reduce Model Input to Relevant Data}
 \usage{
-reduce_model_input(ModInput, model)
+reduce_model_input(ModInput, model, context = deparse(substitute(model)))
 }
 \arguments{
 \item{ModInput}{data frame}
 
 \item{model}{model object}
+
+\item{context}{context string to appear in error messages. Default: name of
+the object passed in \code{model}}
 }
 \description{
 Reduce Model Input to Relevant Data

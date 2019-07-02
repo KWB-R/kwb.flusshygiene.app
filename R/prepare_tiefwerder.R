@@ -3,19 +3,20 @@
 #' Prepare Tiefwerder Data
 #'
 #' @param flows data frame with flow data from Tiefwerder and Sophienwerder
+#' @param dbg debug level. The higher the value, the more verbose the output
 #' @export
 #'
-prepare_tiefwerder <- function(flows)
+prepare_tiefwerder <- function(flows, dbg = 1)
 {
   x <- flows %>%
     kwb.utils::renameAndSelect(list("DateTime", Q.tiefwerder = "Flow")) %>%
-    handle_negative_flows() %>%
+    handle_negative_flows(dbg = dbg) %>%
     summarise_tiefwerder() %>%
     add_missing_tiefwerder_flows()
 }
 
 # handle_negative_flows --------------------------------------------------------
-handle_negative_flows <- function(tiefwerder)
+handle_negative_flows <- function(tiefwerder, dbg = 1)
 {
   # Where are the flow values negative?
   which_negative <- which(tiefwerder$Flow < 0)
@@ -24,9 +25,9 @@ handle_negative_flows <- function(tiefwerder)
 
   if (n_negative) {
 
-    message(sprintf("Setting %d negative flow values to 0:", n_negative))
+    cat(sprintf("Setting %d negative flow values to 0.\n", n_negative))
 
-    print(tiefwerder[which_negative, ])
+    kwb.utils::printIf(dbg > 1, tiefwerder[which_negative, ])
 
     # Set values below 0 to 0
     tiefwerder$Flow[which_negative] <- 0

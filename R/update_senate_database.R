@@ -18,11 +18,14 @@
 #'
 #' @param root path to "root" folder below which to find subfolders "downloads"
 #'   and "database"
+#' @param dbg debug level. The higher the value, the more verbose the output
 #' @export
 #'
-update_senate_database <- function(root = get_root())
+update_senate_database <- function(root = get_root(), dbg = 1)
 {
   #kwb.utils::assignPackageObjects("kwb.flusshygiene.app")
+  message_updating("Senate database", root)
+
   user_pwd <- get_environment_variable("USER_PWD_SENATE")
 
   # Create folder structure as necessary
@@ -50,7 +53,7 @@ update_senate_database <- function(root = get_root())
 
   if (db_exists && length(new_files) == 0) {
 
-    message("Flow database exists and is up to date.")
+    cat("Flow database exists and is up to date.\n")
     return()
   }
 
@@ -59,7 +62,7 @@ update_senate_database <- function(root = get_root())
   files <- if (db_exists) new_files else files_after
 
   # Read data from the (new) files
-  new_flows <- read_flows_from_files(files)
+  new_flows <- read_flows_from_files(files, dbg = dbg)
 
   # Set unplausible flow values to NA
   new_flows <- set_unplausible_flows_to_NA(new_flows)
@@ -71,13 +74,13 @@ update_senate_database <- function(root = get_root())
   flows <- rbind(old_flows, new_flows)
 
   # Update the database files (fst and csv)
-  subject <- "flow data"
-  write_fst_file(flows, file_database, subject)
-  write_input_file(flows, db_path("flows.csv", root), subject)
+  context <- "flow data"
+  write_fst_file(flows, file_database, context)
+  write_input_file(flows, db_path("flows.csv", root), context)
 }
 
 # read_flows_from_files --------------------------------------------------------
-read_flows_from_files <- function(files)
+read_flows_from_files <- function(files, dbg = 1)
 {
   # Read the new files into a list of data frames each of which contains the
   # data from one input file and each of which has data for both sites,
@@ -134,13 +137,16 @@ read_flows_from_files <- function(files)
     flows_by_site <- split(flows, flows$site)
   }
 
-  message("Time ranges with constant time step:")
-  print(lapply(flows_by_site, function(data) kwb.datetime::getEqualStepRanges(
-    data$DateTime
-  )))
+  if (dbg > 1) {
 
-  message("Range of flow values:")
-  print(lapply(flows_by_site, function(data) range(data$Flow)))
+    message("\nTime ranges with constant time step:")
+    print(lapply(flows_by_site, function(data) kwb.datetime::getEqualStepRanges(
+      data$DateTime
+    )))
+
+    message("\nRange of flow values:")
+    print(lapply(flows_by_site, function(data) range(data$Flow)))
+  }
 
   # Start the result data frame with a DateTime column containing all times
   seq_arguments <- c(as.list(range(flows$DateTime)), by = 60*15)
@@ -165,19 +171,22 @@ read_flows_from_files <- function(files)
 }
 
 # set_unplausible_flows_to_NA --------------------------------------------------
-set_unplausible_flows_to_NA <- function(flows)
+set_unplausible_flows_to_NA <- function(flows, dbg = 1)
 {
   # high negative flow on june 23th --> False measurement?
   which_too_low <- which(kwb.utils::selectColumns(flows, "Q.tiefwerder") < -10)
 
   if (length(which_too_low)) {
 
-    print(flows[which_too_low, ])
+    if (dbg > 1) {
+      kwb.utils::printIf(TRUE, flows[which_too_low, ])
+      cat("\n")
+    }
 
     kwb.utils::catAndRun(
       messageText = sprintf(
-        "\nSetting the flow at Tiefwerder %d-times to NA where flow < -10 (%s)",
-        length(which_too_low), "see above"
+        "Setting the flow at Tiefwerder %d-times to NA where flow < -10 %s",
+        length(which_too_low), ifelse(dbg > 1, "(see above)", "")
       ),
       expr = flows$Q.tiefwerder[which_too_low] <- NA
     )

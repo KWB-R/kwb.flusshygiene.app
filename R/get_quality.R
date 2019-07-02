@@ -1,15 +1,31 @@
 # get_quality ------------------------------------------------------------------
-get_quality <- function(prediction)
+get_quality <- function(prediction, context = deparse(substitute(prediction)))
 {
+  # Helper function
   structure_as_text <- function(x) paste(
     collapse = "\n",
     utils::capture.output(utils::str(x))
   )
 
-  if (nrow(prediction) != 1) clean_stop(
-    "get_quality() expects a data frame with exactly one row as input ",
-    "but was given: ", structure_as_text(prediction)
-  )
+  if (is.null(prediction)) {
+
+    quality <- "<fehlende_daten>"
+
+    cat(sprintf(
+      "No quality can be determined for '%s'. Returning '%s'.\n",
+      context, quality
+    ))
+
+    return (quality)
+  }
+
+  if (nrow(prediction) != 1) {
+
+    clean_stop(
+      "get_quality() expects a data frame with exactly one row as input ",
+      "but was given: ", structure_as_text(prediction)
+    )
+  }
 
   qualities <- character()
 

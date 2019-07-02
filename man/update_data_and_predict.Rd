@@ -5,7 +5,7 @@
 \title{Update Model Input Data and Predict Water Quality}
 \usage{
 update_data_and_predict(day_string = as.character(Sys.Date()),
-  upload = FALSE)
+  upload = FALSE, dbg = 1)
 }
 \arguments{
 \item{day_string}{day for which to predict the water quality, in format
@@ -14,6 +14,8 @@ yyyy-mm-dd, e.g. "2019-07-01". Default: \code{as.character(Sys.Date())}}
 \item{upload}{logical. If \code{TRUE} the prediction file
 \code{Vorhersage_yyyy-mm-dd.csv} is uploaded to the server of
 Technologiestiftung Berlin (TSB).}
+
+\item{dbg}{debug level. The higher the value, the more verbose the output}
 }
 \description{
 Update Model Input Data and Predict Water Quality

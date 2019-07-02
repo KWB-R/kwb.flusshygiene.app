@@ -4,9 +4,13 @@
 #'
 #' @param ModInput data frame
 #' @param model model object
+#' @param context context string to appear in error messages. Default: name of
+#'   the object passed in \code{model}
 #' @export
 #'
-reduce_model_input <- function(ModInput, model)
+reduce_model_input <- function(
+  ModInput, model, context = deparse(substitute(model))
+)
 {
   coefficient_names <- names(model$coefficients)
   variable_names <- unlist(strsplit(coefficient_names, split = ":"))
@@ -24,10 +28,9 @@ reduce_model_input <- function(ModInput, model)
 
   if (any(! is_complete)) {
 
-    message(
-      "There are NA values in the model input. The corresponding rows are ",
-      "removed:"
-    )
+    message(sprintf(
+      "There are missing values in the input to '%s': ", context
+    ))
 
     print(result[! is_complete, , drop = FALSE])
   }

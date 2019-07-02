@@ -14,7 +14,7 @@ prepare_rain_ruhleben <- function(combined)
 }
 
 # clear_high_values_in_rain_columns --------------------------------------------
-clear_high_values_in_rain_columns <- function(combined, threshold)
+clear_high_values_in_rain_columns <- function(combined, threshold, dbg = 1)
 {
   # Determine rain data columns
   columns <- setdiff(names(combined), c("tBeg", "tEnd", "KW.Ruh"))
@@ -27,7 +27,7 @@ clear_high_values_in_rain_columns <- function(combined, threshold)
     which_above <- which(x > threshold)
     n_above <- length(which_above)
 
-    if (n_above > 0) {
+    if (n_above) {
 
       x[which_above] <- NA
 
@@ -35,16 +35,16 @@ clear_high_values_in_rain_columns <- function(combined, threshold)
       context_indices <- rep(which_above, each = length(context)) + context
       context_indices <- unique(pmax(pmin(context_indices, length(x)), 0))
 
-      kwb.utils::printIf(
-        condition = TRUE,
-        x = kwb.utils::selectColumns(
+      cat(sprintf(
+        "Setting %d values above %0.1f to NA in column '%s'.\n",
+        n_above, threshold, column
+      ))
+
+      if (dbg > 1) {
+        print(kwb.utils::selectColumns(
           combined[context_indices, ], c("tBeg", "tEnd", column)
-        ),
-        caption = sprintf(
-          "\nSetting %d values above %0.1f to NA in column '%s'",
-          n_above, threshold, column
-        )
-      )
+        ))
+      }
     }
 
     x

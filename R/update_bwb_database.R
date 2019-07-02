@@ -32,13 +32,13 @@ update_bwb_database <- function(
 )
 {
   #kwb.utils::assignPackageObjects("kwb.flusshygiene.app")
-  message("Updating the BWB database... (root folder: ", root, ")")
+  message_updating("BWB database", root)
 
   # Get login information from environment variable
   user_pwd <- get_environment_variable("USER_PWD_KWB")
 
-  # Set the subject (used in debug messages)
-  subject <- "BWB data"
+  # Set the context (used in debug messages)
+  context <- "BWB data"
 
   # Create folder structure as necessary
   paths <- create_folder_structure(root)
@@ -66,8 +66,8 @@ update_bwb_database <- function(
 
       bwb_data <- read_rain_from_files(files = files_bwb, dbg = dbg)
 
-      write_fst_file(bwb_data, db_file_fst, subject)
-      write_input_file(bwb_data, db_file_csv, subject)
+      write_fst_file(bwb_data, db_file_fst, context)
+      write_input_file(bwb_data, db_file_csv, context)
     }
 
     start_day <- lubridate::as_date(min(bwb_data$tBeg))
@@ -107,13 +107,13 @@ update_bwb_database <- function(
   if (is.unsorted(bwb_data$tBeg)) {
 
     bwb_data <- kwb.utils::catAndRun(
-      "Sorting bwb data chronologically", {
+      "Sorting BWB data chronologically", {
         bwb_data[order(bwb_data$tBeg), ]
       }
     )
   }
 
   # Save the updated rain "database" as fst and csv file
-  write_fst_file(bwb_data, db_file_fst, subject)
-  write_input_file(bwb_data, db_file_csv, subject)
+  write_fst_file(bwb_data, db_file_fst, context)
+  write_input_file(bwb_data, db_file_csv, context)
 }

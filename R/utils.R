@@ -51,7 +51,7 @@ download_file <- function(url, destfile, dbg = TRUE)
 {
   kwb.utils::catAndRun(
     dbg = dbg,
-    messageText = paste("Downloading file to ", destfile),
+    messageText = paste("Downloading file to\n ", destfile),
     expr = utils::download.file(url, destfile, quiet = TRUE)
   )
 }
@@ -93,7 +93,13 @@ get_environment_variable <- function(x, do_stop = FALSE)
 # get_root ---------------------------------------------------------------------
 get_root <- function()
 {
-  get_environment_variable("FLUSSHYGIENE_ROOT", do_stop = TRUE)
+  path.expand(get_environment_variable("FLUSSHYGIENE_ROOT", do_stop = TRUE))
+}
+
+# message_updating -------------------------------------------------------------
+message_updating <- function(context, root)
+{
+  message("\nUpdating the ", context, " (root folder: ", root, ")\n")
 }
 
 # remove_column_expected_empty -------------------------------------------------
@@ -101,7 +107,7 @@ remove_column_expected_empty <- function(df, column, dbg = FALSE)
 {
   if (all(kwb.utils::isNaOrEmpty(kwb.utils::selectColumns(df, column)))) {
 
-    return(kwb.utils::removeColumns(df, column, dbg = dbg, ))
+    return(kwb.utils::removeColumns(df, column, dbg = dbg))
   }
 
   message(sprintf(
@@ -133,10 +139,10 @@ set_root <- function(root)
 }
 
 # write_fst_file ---------------------------------------------------------------
-write_fst_file <- function(x, file, subject = deparse(substitute(x)))
+write_fst_file <- function(x, file, context = deparse(substitute(x)))
 {
   kwb.utils::catAndRun(
-    sprintf("Writing %s to '%s'", subject, file),
+    sprintf("Writing %s to\n  '%s'", context, file),
     fst::write_fst(x, file)
   )
 }
@@ -147,14 +153,17 @@ write_fst_file <- function(x, file, subject = deparse(substitute(x)))
 #'
 #' @param x data frame to be written to CSV file
 #' @param file full path to target file
-#' @param subject text describing the kind of data that is written. This text
+#' @param context text describing the kind of data that is written. This text
 #'   will appear in the debug message
+#' @param sep column separator, default: ";"
 #' @export
 #'
-write_input_file <- function(x, file, subject = deparse(substitute(x)))
+write_input_file <- function(
+  x, file, context = deparse(substitute(x)), sep = ";"
+)
 {
   kwb.utils::catAndRun(
-    sprintf("Writing %s to '%s'", subject, file),
-    utils::write.table(x, file, sep = ";", dec = ".", row.names = FALSE)
+    sprintf("Writing %s to\n  '%s'", context, file),
+    utils::write.table(x, file, sep = sep, dec = ".", row.names = FALSE)
   )
 }

@@ -10,6 +10,8 @@
 #'
 prepare_model_input <- function(rain_ruhleben, tiefwerder)
 {
+  message("\nPreparation of model input data\n")
+
   # rain_ruhleben:
   # Day    Precip1 Precip2 flowRuh
   # <date> <dbl>   <dbl>   <dbl>
