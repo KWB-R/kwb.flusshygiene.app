@@ -51,7 +51,7 @@ get_prediction <- function(
 )
 {
   #kwb.utils::assignPackageObjects("kwb.flusshygiene.app")
-  newdata <- reduce_model_input(ModInput = d_predict, model, context = context)
+  newdata <- reduce_model_input(model_input = d_predict, model, context = context)
 
   if (nrow(newdata) == 0) {
 
