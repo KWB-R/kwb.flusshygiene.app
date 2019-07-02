@@ -4,12 +4,12 @@
 \alias{db_path}
 \title{Path to "Database" File}
 \usage{
-db_path(root, file)
+db_path(file, root = get_root())
 }
 \arguments{
-\item{root}{path to "root" directory of the application}
-
 \item{file}{file name within application's "database" folder}
+
+\item{root}{path to "root" directory of the application}
 }
 \description{
 Path to "Database" File

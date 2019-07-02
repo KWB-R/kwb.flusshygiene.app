@@ -38,7 +38,7 @@ clean_stop <- function(...)
 #'
 #' @export
 #'
-db_path <- function(root, file)
+db_path <- function(file, root = get_root())
 {
   file.path(root, "database", file)
 }
