@@ -12,10 +12,14 @@ create_folder_structure <- function(root, dbg = FALSE)
   # Create database folder if necessary
   db <- create_dir(file.path(root, "database"))
 
+  # Create prediction folder if necessary
+  predictions <- create_dir(file.path(root, "predictions"))
+
   list(
     downloads = downloads,
     downloads_bwb = downloads_bwb,
     downloads_senate = downloads_senate,
-    db = db
+    db = db,
+    predictions = predictions
   )
 }
