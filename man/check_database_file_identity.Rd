@@ -2,10 +2,10 @@
 % Please edit documentation in R/check_database_file_identity.R
 \name{check_database_file_identity}
 \alias{check_database_file_identity}
-\title{Check Identity of Database Files (fst versus cvs)}
+\title{Check Identity of Database Files (fst versus csv)}
 \usage{
 check_database_file_identity()
 }
 \description{
-Check Identity of Database Files (fst versus cvs)
+Check Identity of Database Files (fst versus csv)
 }

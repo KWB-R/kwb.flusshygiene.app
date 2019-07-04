@@ -9,7 +9,7 @@
 
 This GitHub repository contains the code of the R package
 kwb.flusshygiene.app. The package provides functions to run a prediction
-of the bathing water quality of two bathing spots in Berlin, Germany.
+of the bathing water quality at two bathing spots in Berlin, Germany.
 The main function is intended to be run once a day (preferably by
 automation). This function
 
@@ -45,19 +45,19 @@ remotes::install_github("KWB-R/kwb.flusshygiene.app")
 
 The package needs access to at least two FTP servers to which rain and
 water flow measurements are uploaded on a regular basis. You need to
-specify the Unified Resource Locators (URLs) to these servers as well as
+specify the Uniform Resource Locators (URLs) to these servers as well as
 the credentials (user name and password) for authentication. Therefore,
 set the following environment variables:
 
-  - `FTP_URL_KWB`: URL to KWB’s download FTP server
-  - `FTP_URL_SENATE`: URL to Senate’s download FTP server
+  - `FTP_URL_KWB`: URL to KWB’s download server
+  - `FTP_URL_SENATE`: URL to Senate’s download server
   - `FTP_URL_TSB`: URL to TSB’s upload server
-  - `USER_PWD_KWB`: User name and password for KWB’s download FTP server
-  - `USER_PWD_SENATE`: User name and password for Senate’s download FTP
+  - `USER_PWD_KWB`: User name and password for KWB’s download server
+  - `USER_PWD_SENATE`: User name and password for Senate’s download
     server
   - `USER_PWD_TSB` User name and password for TSB’s upload server
 
-We recommend to set these variables in the file `.Renviron` that is
+We recommend to set these variables in the `.Renviron` file that is
 loaded automatically when R is started. Use the function
 `edit_r_environ()` from the usethis package (installed above) to open
 the `.Renviron` file in an editor:
@@ -66,9 +66,9 @@ the `.Renviron` file in an editor:
 usethis::edit_r_environ()
 ```
 
-In the editor, add the following lines to the file. Replace `...` with
-the appropriate values (that you know if you are an authenticated person
-`;-)`)
+In the editor, add the following lines to the file (or make sure that
+they are there). Replace `...` with the appropriate values (that you
+know if you are an authenticated person `;-)`).
 
     FTP_URL_KWB=ftp:...
     FTP_URL_SENATE=ftp://...
@@ -97,20 +97,20 @@ With the first command you tell the package where to store downloaded
 files, model input files and model results. Make sure that the folder
 exists. Required subfolders will be created automatically.
 
-With the second command you run the main function that does all the
-steps that are summarised in the preface above. The function has an
+With the second command you run the main function that performs all the
+steps that are outlined in the preface above. The function has an
 argument `upload` that is set to `FALSE` by default. The argument
 specifies whether to upload the result of the daily prediction to the
-web server of Technologiestiftung Berlin (TSB). Set this argument only
-to `TRUE` if you know what you are doing\!
+web server of Technologiestiftung Berlin (TSB). Set this argument to
+`TRUE` only if you know what you are doing\!
 
 ``` r
 kwb.flusshygiene.app::update_data_and_predict(upload = TRUE)
 ```
 
 We recommend that you setup a so called
-[cron-job](https://en.wikipedia.org/wiki/Cron) that runs this script on
-a daily basis.
+[cron-job](https://en.wikipedia.org/wiki/Cron) that runs the main script
+on a daily basis.
 
 ## Folder structure
 
