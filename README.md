@@ -1,41 +1,139 @@
-[![Appveyor build Status](https://ci.appveyor.com/api/projects/status/github/KWB-R/kwb.flusshygiene.app?branch=master&svg=true)](https://ci.appveyor.com/project/KWB-R/kwb-flusshygiene-app/branch/master)
-[![Travis build Status](https://travis-ci.org/KWB-R/kwb.flusshygiene.app.svg?branch=master)](https://travis-ci.org/KWB-R/kwb.flusshygiene.app)
-[![codecov](https://codecov.io/github/KWB-R/kwb.flusshygiene.app/branch/master/graphs/badge.svg)](https://codecov.io/github/KWB-R/kwb.flusshygiene.app)
-[![Project Status](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/kwb.flusshygiene.app)]()
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # kwb.flusshygiene.app
 
-R Package Implementing the Flusshygiene
-Application. This package provides the functions required to setup the
-web application as it was developed during the KWB project
-'Flusshygiene'.
+<!-- badges: start -->
+
+<!-- badges: end -->
+
+This GitHub repository contains the code of the R package
+kwb.flusshygiene.app. The package provides functions to run a prediction
+of the bathing water quality of two bathing spots in Berlin, Germany.
+The main function is intended to be run once a day (preferably by
+automation). This function
+
+  - downloads new rain and flow measurements from two FTP servers,
+  - merges the new data with existing data in local files,
+  - prepares the data for input in statistical models,
+  - runs two statistical models, one for each bathing spot, to predict
+    the water quality at these spots,
+  - saves the predictions in local files, and, optionally,
+  - uploads the predictions for the current day to a web server.
 
 ## Installation
 
-For details on how to install KWB-R packages checkout our [installation tutorial](https://kwb-r.github.io/kwb.pkgbuild/articles/install.html).
+You need to have R installed. R is a free software environment for
+statistical computing and graphics. You can download it
+[here](https://cran.uni-muenster.de/).
 
-```r
-### Optionally: specify GitHub Personal Access Token (GITHUB_PAT)
-### See here why this might be important for you:
-### https://kwb-r.github.io/kwb.pkgbuild/articles/install.html#set-your-github_pat
+Run R and install the following packages first:
 
-# Sys.setenv(GITHUB_PAT = "mysecret_access_token")
+``` r
+install.packages("remotes")
+install.packages("usethis")
+```
 
-# Install package "remotes" from CRAN
-if (! require("remotes")) {
-  install.packages("remotes", repos = "https://cloud.r-project.org")
-}
+Then, install kwb.flusshygiene.app directly from
+[GitHub](https://github.com/) with:
 
-### Temporary workaround on Windows to fix bug in CRAN version v2.0.2
-### of "remotes" (see https://github.com/r-lib/remotes/issues/248)
-
-remotes::install_github("r-lib/remotes@18c7302637053faf21c5b025e1e9243962db1bdc")
+``` r
 remotes::install_github("KWB-R/kwb.flusshygiene.app")
 ```
 
-## Documentation
+## Giving access to the servers
 
-Release: [https://kwb-r.github.io/kwb.flusshygiene.app](https://kwb-r.github.io/kwb.flusshygiene.app)
+The package needs access to at least two FTP servers to which rain and
+water flow measurements are uploaded on a regular basis. You need to
+specify the Unified Resource Locators (URLs) to these servers as well as
+the credentials (user name and password) for authentication. Therefore,
+set the following environment variables:
 
-Development: [https://kwb-r.github.io/kwb.flusshygiene.app/dev](https://kwb-r.github.io/kwb.flusshygiene.app/dev)
+  - `FTP_URL_KWB`: URL to KWB’s download FTP server
+  - `FTP_URL_SENATE`: URL to Senate’s download FTP server
+  - `FTP_URL_TSB`: URL to TSB’s upload server
+  - `USER_PWD_KWB`: User name and password for KWB’s download FTP server
+  - `USER_PWD_SENATE`: User name and password for Senate’s download FTP
+    server
+  - `USER_PWD_TSB` User name and password for TSB’s upload server
+
+We recommend to set these variables in the file `.Renviron` that is
+loaded automatically when R is started. Use the function
+`edit_r_environ()` from the usethis package (installed above) to open
+the `.Renviron` file in an editor:
+
+``` r
+usethis::edit_r_environ()
+```
+
+In the editor, add the following lines to the file. Replace `...` with
+the appropriate values (that you know if you are an authenticated person
+`;-)`)
+
+    FTP_URL_KWB=ftp:...
+    FTP_URL_SENATE=ftp://...
+    FTP_URL_TSB=https://...
+    
+    USER_PWD_KWB=...:...
+    USER_PWD_SENATE=...:...
+    USER_PWD_TSB=...:...
+
+Save and close the `.Renviron` file.
+
+## Main script
+
+Once the environment variables are set you can run the following main
+script:
+
+``` r
+# Set the root folder below which to expect/create the app's folder structure
+kwb.flusshygiene.app::set_root("~/projekte/flusshygiene/fruehwarnsystem")
+
+# Update rain and flow databases by downloading current data and run the model
+kwb.flusshygiene.app::update_data_and_predict()
+```
+
+With the first command you tell the package where to store downloaded
+files, model input files and model results. Make sure that the folder
+exists. Required subfolders will be created automatically.
+
+With the second command you run the main function that does all the
+steps that are summarised in the preface above. The function has an
+argument `upload` that is set to `FALSE` by default. The argument
+specifies whether to upload the result of the daily prediction to the
+web server of Technologiestiftung Berlin (TSB). Set this argument only
+to `TRUE` if you know what you are doing\!
+
+``` r
+kwb.flusshygiene.app::update_data_and_predict(upload = TRUE)
+```
+
+We recommend that you setup a so called
+[cron-job](https://en.wikipedia.org/wiki/Cron) that runs this script on
+a daily basis.
+
+## Folder structure
+
+The package uses the following structure of files and folders. The
+folder structure will be created below the folder that you specify in
+the `set_root()` call of the main script (see above).
+
+    database\
+      flows.csv - Flow data in text format (CSV)
+      flows.fst - Flow data in binary format (fst, to be read with fst::read_fst())
+      model_input.csv - Model input data in text format (CSV)
+      rain-ruhleben.csv - Rain and Flow data (at outlet of WWT Ruhleben, CSV format)
+      rain-ruhleben.fst - Rain and Flow data (at outlet of WWT Ruhleben, fst format)
+    downloads\
+      bwb\
+        Regenschreiber_190615_0810.txt - Rain and Flow data of one day
+        Regenschreiber_190616_0810.txt
+        Regenschreiber_190617_0810.txt
+        ...
+      senate\
+        TW_SW_190702.txt - Flow data of one day
+    predictions\
+      Vorhersage_2019-07-01.csv - Predictions for two sites and one day
+      Vorhersage_2019-07-02.csv
+      ...
+      Vorhersagen.csv - All Predictions for the two sites so far
