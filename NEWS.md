@@ -1,3 +1,8 @@
+# kwb.flusshygiene.app 0.9.1
+
+* Fix travis build and add documentation website: 
+  https://kwb-r.github.io/kwb.flusshygiene.app
+
 # kwb.flusshygiene.app 0.9.0
 
 * Pre-release of the Flusshygiene App "Version 2018".

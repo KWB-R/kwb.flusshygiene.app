@@ -29,14 +29,15 @@ matrix:
     - r: release
       after_success:
       - Rscript -e 'covr::codecov()'
-    before_deploy:
-    - Rscript -e 'remotes::install_cran("pkgdown")'
-    deploy:
-      provider: script
-      script: Rscript -e 'pkgdown::deploy_site_github(verbose = TRUE)'
+      before_deploy:
+      - Rscript -e 'remotes::install_cran("pkgdown")'
+      deploy:
+        provider: script
+        script: Rscript -e 'pkgdown::deploy_site_github(verbose = TRUE)'
       skip_cleanup: 'true'
       on:
-        branch:
+        branch: 
           - master
           - dev
     - r: oldrel
+ 
