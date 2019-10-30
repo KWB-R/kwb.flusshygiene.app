@@ -70,7 +70,7 @@ usethis::edit_r_environ()
 
 In the editor, add the following lines to the file (or make sure that
 they are there). Replace `...` with the appropriate values (that you
-know if you are an authenticated person `;-)`).
+know if you are an authenticated person).
 
     FTP_URL_KWB=ftp:...
     FTP_URL_SENATE=ftp://...
