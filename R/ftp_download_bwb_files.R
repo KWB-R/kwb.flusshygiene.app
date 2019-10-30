@@ -3,6 +3,12 @@ ftp_download_bwb_files_of_days <- function(missing_days, target_dir, dbg = TRUE)
 {
   # Get download URL and credentials from environment variables
   ftp_url <- get_environment_variable("FTP_URL_KWB")
+
+  if (! nzchar(ftp_url)) {
+    message("Skipping the download of files from KWB's FTP server.")
+    return(character())
+  }
+
   user_pwd <- get_environment_variable("USER_PWD_KWB")
 
   # - days that are available for download
