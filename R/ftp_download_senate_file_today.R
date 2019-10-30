@@ -3,6 +3,11 @@ ftp_download_senate_file_today <- function(dest_folder, dbg = TRUE)
 {
   # Get download URL and credentials from environment variables
   ftp_url <- get_environment_variable("FTP_URL_SENATE")
+
+  if (message_on_missing_url(ftp_url, owner = "Berline Senate")) {
+    return()
+  }
+
   user_pwd <- get_environment_variable("USER_PWD_SENATE")
 
   url <- file.path(add_credentials(ftp_url, user_pwd), "ExportFlusshygiene.csv")

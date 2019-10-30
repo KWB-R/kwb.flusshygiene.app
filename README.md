@@ -3,9 +3,11 @@
 
 # kwb.flusshygiene.app
 
-<!-- badges: start -->
-
-<!-- badges: end -->
+[![Appveyor build Status](https://ci.appveyor.com/api/projects/status/github/KWB-R/kwb.flusshygiene.app?branch=master&svg=true)](https://ci.appveyor.com/project/KWB-R/kwb-flusshygiene-app/branch/master)
+[![Travis build Status](https://travis-ci.org/KWB-R/kwb.flusshygiene.app.svg?branch=master)](https://travis-ci.org/KWB-R/kwb.flusshygiene.app)
+[![codecov](https://codecov.io/github/KWB-R/kwb.flusshygiene.app/branch/master/graphs/badge.svg)](https://codecov.io/github/KWB-R/kwb.flusshygiene.app)
+[![Project Status](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/kwb.flusshygiene.app)]()
 
 This GitHub repository contains the code of the R package
 kwb.flusshygiene.app. The package provides functions to run a prediction
@@ -68,7 +70,7 @@ usethis::edit_r_environ()
 
 In the editor, add the following lines to the file (or make sure that
 they are there). Replace `...` with the appropriate values (that you
-know if you are an authenticated person `;-)`).
+know if you are an authenticated person).
 
     FTP_URL_KWB=ftp:...
     FTP_URL_SENATE=ftp://...

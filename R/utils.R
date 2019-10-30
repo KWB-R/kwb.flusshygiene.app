@@ -102,6 +102,17 @@ get_root <- function()
   path.expand(get_environment_variable("FLUSSHYGIENE_ROOT", do_stop = TRUE))
 }
 
+# message_on_missing_url -------------------------------------------------------
+message_on_missing_url <- function(ftp_url, owner)
+{
+  if (nzchar(ftp_url)) {
+    return(FALSE)
+  }
+
+  message("\nSkipping the download of files from ", owner, "'s FTP server.")
+  TRUE
+}
+
 # message_updating -------------------------------------------------------------
 message_updating <- function(context, root)
 {

@@ -5,8 +5,9 @@
 ^.travis\.yml$
 ^.gitlab-ci\.yml$
 ^appveyor\.yml$
-^index\.Rmd$
+^index\.md$
 ^README\.md$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^README\.Rmd$
+^\.travis\.yml$

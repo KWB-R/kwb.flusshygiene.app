@@ -1,22 +1,8 @@
----
-output: github_document
----
-
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
-)
-```
-
-# kwb.flusshygiene.app
-
-<!-- badges: start -->
-<!-- badges: end -->
+[![Appveyor build Status](https://ci.appveyor.com/api/projects/status/github/KWB-R/kwb.flusshygiene.app?branch=master&svg=true)](https://ci.appveyor.com/project/KWB-R/kwb-flusshygiene-app/branch/master)
+[![Travis build Status](https://travis-ci.org/KWB-R/kwb.flusshygiene.app.svg?branch=master)](https://travis-ci.org/KWB-R/kwb.flusshygiene.app)
+[![codecov](https://codecov.io/github/KWB-R/kwb.flusshygiene.app/branch/master/graphs/badge.svg)](https://codecov.io/github/KWB-R/kwb.flusshygiene.app)
+[![Project Status](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/kwb.flusshygiene.app)]()
 
 This GitHub repository contains the code of the R package kwb.flusshygiene.app.
 The package provides functions to run a prediction of the bathing water quality
@@ -39,7 +25,7 @@ computing and graphics. You can download it
 
 Run R and install the following packages first:
 
-```{r eval = FALSE}
+```r
 install.packages("remotes")
 install.packages("usethis")
 ```
@@ -47,7 +33,7 @@ install.packages("usethis")
 Then, install kwb.flusshygiene.app directly from [GitHub](https://github.com/) 
 with:
 
-``` r
+```r
 remotes::install_github("KWB-R/kwb.flusshygiene.app")
 ```
 ## Giving access to the servers
@@ -69,7 +55,7 @@ We recommend to set these variables in the `.Renviron` file that is loaded
 automatically when R is started. Use the function `edit_r_environ()` from 
 the usethis package (installed above) to open the `.Renviron` file in an editor:
 
-```{r eval = FALSE}
+```r
 usethis::edit_r_environ()
 ```
 
@@ -93,7 +79,7 @@ Save and close the `.Renviron` file.
 
 Once the environment variables are set you can run the following main script:
 
-```{r eval = FALSE}
+```r
 # Set the root folder below which to expect/create the app's folder structure
 kwb.flusshygiene.app::set_root("~/projekte/flusshygiene/fruehwarnsystem")
 
@@ -111,7 +97,7 @@ that is set to `FALSE` by default. The argument specifies whether to upload the
 result of the daily prediction to the web server of Technologiestiftung Berlin
 (TSB). Set this argument to `TRUE` only if you know what you are doing!
 
-```{r eval = FALSE}
+```r
 kwb.flusshygiene.app::update_data_and_predict(upload = TRUE)
 ```
 
