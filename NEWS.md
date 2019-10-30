@@ -1,3 +1,7 @@
+# kwb.flusshygiene.app 0.10.0
+
+* Skip FTP download if no corresponding URLs are set
+
 # kwb.flusshygiene.app 0.9.1
 
 * Fix travis build and add documentation website: 
