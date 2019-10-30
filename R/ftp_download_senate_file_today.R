@@ -4,8 +4,7 @@ ftp_download_senate_file_today <- function(dest_folder, dbg = TRUE)
   # Get download URL and credentials from environment variables
   ftp_url <- get_environment_variable("FTP_URL_SENATE")
 
-  if (! nzchar(ftp_url)) {
-    message("Skipping the download of files from Berlin Senate's FTP server.")
+  if (message_on_missing_url(ftp_url, owner = "Berline Senate")) {
     return()
   }
 
