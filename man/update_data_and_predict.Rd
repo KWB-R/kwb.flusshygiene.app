@@ -30,7 +30,8 @@ The following environment variables need to be set:
   \item{FTP_URL_SENATE}{URL to Senate's download FTP server}
   \item{FTP_URL_TSB}{URL to TSB's upload server}
   \item{USER_PWD_KWB}{User name and password for KWB's download FTP server}
-  \item{USER_PWD_SENATE}{User name and password for  Senate's download FTP server}
+  \item{USER_PWD_SENATE}{User name and password for  Senate's download FTP
+  server}
   \item{USER_PWD_TSB}{User name and password for TSB's upload server}
 }
 
