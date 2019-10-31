@@ -89,10 +89,10 @@
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You need to have R installed. R is a free software environment for statistical computing and graphics. You can download it <a href="https://cran.uni-muenster.de/">here</a>.</p>
 <p>Run R and install the following packages first:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"remotes"</span>)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"usethis"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"remotes"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"usethis"</span>)</span></code></pre></div>
 <p>Then, install kwb.flusshygiene.app directly from <a href="https://github.com/">GitHub</a> with:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">remotes<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"KWB-R/kwb.flusshygiene.app"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>remotes<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"KWB-R/kwb.flusshygiene.app"</span>)</span></code></pre></div>
 </div>
 <div id="giving-access-to-the-servers" class="section level2">
 <h2 class="hasAnchor">
@@ -113,7 +113,7 @@
 <code>USER_PWD_TSB</code> User name and password for TSB’s upload server</li>
 </ul>
 <p>We recommend to set these variables in the <code>.Renviron</code> file that is loaded automatically when R is started. Use the function <code>edit_r_environ()</code> from the usethis package (installed above) to open the <code>.Renviron</code> file in an editor:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">edit_r_environ</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>usethis<span class="op">::</span><span class="kw">edit_r_environ</span>()</span></code></pre></div>
 <p>In the editor, add the following lines to the file (or make sure that they are there). Replace <code>...</code> with the appropriate values (that you know if you are an authenticated person <code>;-)</code>).</p>
 <pre><code>FTP_URL_KWB=ftp:...
 FTP_URL_SENATE=ftp://...
@@ -128,14 +128,14 @@ USER_PWD_TSB=...:...</code></pre>
 <h2 class="hasAnchor">
 <a href="#main-script" class="anchor"></a>Main script</h2>
 <p>Once the environment variables are set you can run the following main script:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># Set the root folder below which to expect/create the app's folder structure</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">kwb.flusshygiene.app<span class="op">::</span><span class="kw">set_root</span>(<span class="st">"~/projekte/flusshygiene/fruehwarnsystem"</span>)</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co"># Update rain and flow databases by downloading current data and run the model</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5">kwb.flusshygiene.app<span class="op">::</span><span class="kw">update_data_and_predict</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Set the root folder below which to expect/create the app's folder structure</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>kwb.flusshygiene.app<span class="op">::</span><span class="kw">set_root</span>(<span class="st">"~/projekte/flusshygiene/fruehwarnsystem"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3"></a></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="co"># Update rain and flow databases by downloading current data and run the model</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a>kwb.flusshygiene.app<span class="op">::</span><span class="kw">update_data_and_predict</span>()</span></code></pre></div>
 <p>With the first command you tell the package where to store downloaded files, model input files and model results. Make sure that the folder exists. Required subfolders will be created automatically.</p>
 <p>With the second command you run the main function that performs all the steps that are outlined in the preface above. The function has an argument <code>upload</code> that is set to <code>FALSE</code> by default. The argument specifies whether to upload the result of the daily prediction to the web server of Technologiestiftung Berlin (TSB). Set this argument to <code>TRUE</code> only if you know what you are doing!</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">kwb.flusshygiene.app<span class="op">::</span><span class="kw">update_data_and_predict</span>(<span class="dt">upload =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>kwb.flusshygiene.app<span class="op">::</span><span class="kw">update_data_and_predict</span>(<span class="dt">upload =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p>We recommend that you setup a so called <a href="https://en.wikipedia.org/wiki/Cron">cron-job</a> that runs the main script on a daily basis.</p>
 </div>
 <div id="folder-structure" class="section level2">
@@ -196,11 +196,11 @@ predictions\
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://ci.appveyor.com/project/KWB-R/kwb-flusshygiene-app/branch/master"><embed src="https://ci.appveyor.com/api/projects/status/github/KWB-R/kwb.flusshygiene.app?branch=master&amp;svg=true"></embed></a></li>
+<li><a href="https://ci.appveyor.com/project/KWB-R/kwb-flusshygiene-app/branch/master"><img src="https://ci.appveyor.com/api/projects/status/github/KWB-R/kwb.flusshygiene.app?branch=master&amp;svg=true" alt="Appveyor build Status"></a></li>
 <li><a href="https://travis-ci.org/KWB-R/kwb.flusshygiene.app"><img src="https://travis-ci.org/KWB-R/kwb.flusshygiene.app.svg?branch=master" alt="Travis build Status"></a></li>
 <li><a href="https://codecov.io/github/KWB-R/kwb.flusshygiene.app"><img src="https://codecov.io/github/KWB-R/kwb.flusshygiene.app/branch/master/graphs/badge.svg" alt="codecov"></a></li>
 <li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Project Status"></a></li>
-<li><a href=""><embed src="https://www.r-pkg.org/badges/version/kwb.flusshygiene.app"></embed></a></li>
+<li><a href=""><img src="https://www.r-pkg.org/badges/version/kwb.flusshygiene.app" alt="CRAN_Status_Badge"></a></li>
 </ul>
 </div>
 </div>
