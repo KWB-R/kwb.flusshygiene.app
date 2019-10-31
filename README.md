@@ -1,6 +1,3 @@
-
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
 # kwb.flusshygiene.app
 
 [![Appveyor build Status](https://ci.appveyor.com/api/projects/status/1ow2xhn25eg7e188/branch/master?svg=true)](https://ci.appveyor.com/project/KWB-R/kwb-flusshygiene-app/branch/master)
