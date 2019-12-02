@@ -8,6 +8,9 @@ authors:
 template:
   params:
     bootswatch: cerulean
+    docsearch:
+      api_key: ed0c3429c00e33b9e758bebfeea602df
+      index_name: kwb_flusshygiene_app
 development:
   mode: auto
 
