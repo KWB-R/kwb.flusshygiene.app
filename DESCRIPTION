@@ -1,6 +1,6 @@
 Package: kwb.flusshygiene.app
 Title: R Package Implementing the Flusshygiene Application
-Version: 0.10.0.9000
+Version: 0.11.0
 Authors@R: 
     c(person(given = "Wolfgang",
              family = "Seis",
@@ -11,11 +11,18 @@ Authors@R:
              family = "Zamzow",
              role = c("aut"),
              email = "malte.zamzow@kompetenz-wasser.de"),
-      person(given = "Hauke",
+    c(person(given = "Hauke",
              family = "Sonnenberg",
              role = c("aut", "cre"),
              email = "hauke.sonnenberg@kompetenz-wasser.de",
              comment = c(ORCID = "0000-0001-9134-2871")),
+      person(given = "Michael",
+             family = "Rustler",
+             role = "ctb",
+             email = "michael.rustler@kompetenz-wasser.de",
+             comment = c(ORCID = "0000-0003-0647-7726")),
+      person(given = "FLUSSHYGIENE",
+             role = "fnd"),
       person(given = "Kompetenzzentrum Wasser Berlin gGmbH (KWB)",
              role = "cph"))
 Description: R Package Implementing the Flusshygiene

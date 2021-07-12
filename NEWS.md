@@ -1,3 +1,10 @@
+# kwb.flusshygiene.app 0.11.0
+
+* Move to GitHub actions (remove Travis and Appveyor as CI)
+
+* Add project [FLUSSHYGIENE](https://kompetenz-wasser.de/en/project/flusshygiene) 
+as funder
+
 # kwb.flusshygiene.app 0.10.0
 
 * Skip FTP download if no corresponding URLs are set

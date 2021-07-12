@@ -1,8 +1,16 @@
 authors:
   Wolfgang Seis:
     href: ~
+  Hauke Sonnenberg:
+    href: https://github.com/hsonne
+  Michael Rustler:
+    href: https://mrustl.de
+  FLUSSHYGIENE:
+    href: https://www.kompetenz-wasser.de
+    html: <img src='http://www.kompetenz-wasser.de/wp-content/uploads/2017/08/cropped-logo-kwb_klein-new.png'
+      height='24' />
   Kompetenzzentrum Wasser Berlin gGmbH (KWB):
-    href: http://www.kompetenz-wasser.de
+    href: https://www.kompetenz-wasser.de
     html: <img src='http://www.kompetenz-wasser.de/wp-content/uploads/2017/08/cropped-logo-kwb_klein-new.png'
       height='24' />
 template:
