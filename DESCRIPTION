@@ -42,10 +42,8 @@ Imports:
     kwb.utils (>= 0.4.2.9000),
     lubridate (>= 1.7.4),
     magrittr (>= 1.5),
-    RCurl (>= 1.95.4.11),
     rlang (>= 0.3.4),
-    rstanarm (>= 2.18.2),
-    stringr (>= 1.4.0)
+    rstanarm (>= 2.18.2)
 Suggests: 
     covr (>= 3.2.1),
     testthat (>= 2.0.1)
