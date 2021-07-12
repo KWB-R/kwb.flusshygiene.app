@@ -34,19 +34,19 @@ BugReports: https://github.com/KWB-R/kwb.flusshygiene.app/issues
 Depends: 
     R (>= 3.0.0)
 Imports: 
-    dplyr (>= 0.8.0.1),
-    fst (>= 0.8.10),
-    httr (>= 1.4.0),
-    kwb.datetime (>= 0.3.1.9000),
-    kwb.dwd (>= 0.0.0.9000),
-    kwb.utils (>= 0.4.2.9000),
-    lubridate (>= 1.7.4),
-    magrittr (>= 1.5),
-    rlang (>= 0.3.4),
-    rstanarm (>= 2.18.2)
+    dplyr,
+    fst,
+    httr,
+    kwb.datetime,
+    kwb.dwd,
+    kwb.utils,
+    lubridate,
+    magrittr,
+    rlang,
+    rstanarm
 Suggests: 
-    covr (>= 3.2.1),
-    testthat (>= 2.0.1)
+    covr,
+    testthat
 Remotes:
     github::kwb-r/kwb.datetime,
     github::kwb-r/kwb.dwd,
