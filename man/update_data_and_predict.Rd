@@ -4,8 +4,11 @@
 \alias{update_data_and_predict}
 \title{Update Model Input Data and Predict Water Quality}
 \usage{
-update_data_and_predict(day_string = as.character(Sys.Date()),
-  upload = FALSE, dbg = 1)
+update_data_and_predict(
+  day_string = as.character(Sys.Date()),
+  upload = FALSE,
+  dbg = 1
+)
 }
 \arguments{
 \item{day_string}{day for which to predict the water quality, in format

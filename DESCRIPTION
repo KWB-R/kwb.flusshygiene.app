@@ -1,51 +1,56 @@
 Package: kwb.flusshygiene.app
 Title: R Package Implementing the Flusshygiene Application
-Version: 0.10.0
+Version: 0.11.0
 Authors@R: 
     c(person(given = "Wolfgang",
              family = "Seis",
-             role = c("aut"),
+             role = "aut",
              email = "wolfgang.seis@kompetenz-wasser.de",
              comment = c(ORCID = "0000-0002-7436-8575")),
       person(given = "Malte",
              family = "Zamzow",
-             role = c("aut"),
+             role = "aut",
              email = "malte.zamzow@kompetenz-wasser.de"),
       person(given = "Hauke",
              family = "Sonnenberg",
              role = c("aut", "cre"),
              email = "hauke.sonnenberg@kompetenz-wasser.de",
              comment = c(ORCID = "0000-0001-9134-2871")),
+      person(given = "Michael",
+             family = "Rustler",
+             role = "ctb",
+             email = "michael.rustler@kompetenz-wasser.de",
+             comment = c(ORCID = "0000-0003-0647-7726")),
+      person(given = "FLUSSHYGIENE",
+             role = "fnd"),
       person(given = "Kompetenzzentrum Wasser Berlin gGmbH (KWB)",
              role = "cph"))
-Description: R Package Implementing the Flusshygiene
-    Application. This package provides the functions required to setup the
-    web application as it was developed during the KWB project
-    'Flusshygiene'.
-Depends: R (>= 3.0.0)
+Description: R Package Implementing the Flusshygiene Application. This
+    package provides the functions required to setup the web application
+    as it was developed during the KWB project 'Flusshygiene'.
 License: MIT + file LICENSE
 URL: https://github.com/KWB-R/kwb.flusshygiene.app
 BugReports: https://github.com/KWB-R/kwb.flusshygiene.app/issues
+Depends: 
+    R (>= 3.0.0)
+Imports: 
+    dplyr,
+    fst,
+    httr,
+    kwb.datetime,
+    kwb.dwd,
+    kwb.utils,
+    lubridate,
+    magrittr,
+    rlang,
+    rstanarm
+Suggests: 
+    covr,
+    testthat
+Remotes:
+    github::kwb-r/kwb.datetime,
+    github::kwb-r/kwb.dwd,
+    github::kwb-r/kwb.utils
 Encoding: UTF-8
 LazyData: true
-Suggests: 
-    covr (>= 3.2.1),
-    testthat (>= 2.0.1)
-RoxygenNote: 6.1.1
-Imports: 
-    dplyr (>= 0.8.0.1),
-    fst (>= 0.8.10),
-    httr (>= 1.4.0),
-    kwb.datetime (>= 0.3.1.9000),
-    kwb.dwd (>= 0.0.0.9000),
-    kwb.utils (>= 0.4.2.9000),
-    lubridate (>= 1.7.4),
-    magrittr (>= 1.5),
-    RCurl (>= 1.95.4.11),
-    rlang (>= 0.3.4),
-    rstanarm (>= 2.18.2),
-    stringr (>= 1.4.0)
-Remotes:
-    github::kwb-r/kwb.datetime@dev,
-    github::kwb-r/kwb.dwd@dev,
-    github::kwb-r/kwb.utils@dev
+RoxygenNote: 7.1.1

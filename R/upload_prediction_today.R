@@ -1,4 +1,13 @@
 # upload_prediction_today ------------------------------------------------------
+#' Upload Prediction Today
+#'
+#' @param file file
+#'
+#' @return upload prediction today
+#' @export
+#'
+#' @importFrom httr POST upload_file
+#' @importFrom kwb.utils catAndRun
 upload_prediction_today <- function(file)
 {
   # Get download URL and credentials from environment variables

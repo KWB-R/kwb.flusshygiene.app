@@ -1,4 +1,13 @@
 # filter_for_day_string --------------------------------------------------------
+#' Filter For Day String
+#'
+#' @param df data frame
+#' @param day_string day string in ISO format "year-month-day"
+#'
+#' @return data frame with days smaller or equal day_string
+#' @export
+#'
+#' @importFrom kwb.utils selectColumns
 filter_for_day_string <- function(df, day_string)
 {
   existing_days <- format(kwb.utils::selectColumns(df, "Date"), "%Y-%m-%d")

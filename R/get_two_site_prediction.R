@@ -45,6 +45,19 @@ get_two_site_prediction <- function(d_predict_today, dbg = 1)
 }
 
 # get_prediction ---------------------------------------------------------------
+#' Get Prediction
+#'
+#' @param model model
+#' @param d_predict d_predict
+#' @param quantile_probs quantile_probs (default: c(0.025, 0.975, 0.5, 0.9, 0.95))
+#' @param dbg default: 1
+#' @param context default: deparse(substitute(model)
+#'
+#' @return prediction
+#' @export
+#'
+#' @importFrom kwb.utils catIf
+#' @importFrom rstanarm posterior_predict
 get_prediction <- function(
   model, d_predict, quantile_probs = c(0.025, 0.975, 0.5, 0.9, 0.95), dbg = 1,
   context = deparse(substitute(model))

@@ -26,7 +26,9 @@
 #'   for which data is found in the "downloads/bwb". Default: "2019-06-15"
 #' @param dbg if \code{TRUE} debug messages are shown
 #' @export
-#'
+#' @importFrom fst read.fst
+#' @importFrom lubridate as_date
+#' @importFrom kwb.utils catAndRun
 update_bwb_database <- function(
   root = get_root(), start_day = "2019-06-15", dbg = TRUE
 )

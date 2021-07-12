@@ -5,7 +5,7 @@
 #' @param flows data frame with flow data from Tiefwerder and Sophienwerder
 #' @param dbg debug level. The higher the value, the more verbose the output
 #' @export
-#'
+#' @importFrom kwb.utils renameAndSelect
 prepare_tiefwerder <- function(flows, dbg = 1)
 {
   x <- flows %>%

@@ -4,8 +4,7 @@
 \alias{update_bwb_database}
 \title{Download New Files and Update Local "Database"}
 \usage{
-update_bwb_database(root = get_root(), start_day = "2019-06-15",
-  dbg = TRUE)
+update_bwb_database(root = get_root(), start_day = "2019-06-15", dbg = TRUE)
 }
 \arguments{
 \item{root}{path to "root" folder below which to find subfolders "downloads"

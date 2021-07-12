@@ -1,4 +1,15 @@
 # read_timeseries_csv ----------------------------------------------------------
+#' Read Timeseries Csv
+#'
+#' @param file file
+#' @param time_columns default: c("tBeg", "tEnd")
+#' @param switches default: TRUE
+#'
+#' @return data frame with timeseries
+#' @export
+#'
+#' @importFrom kwb.utils selectColumns
+#' @importFrom kwb.datetime textToEuropeBerlinPosix
 read_timeseries_csv <- function(
   file, time_columns = c("tBeg", "tEnd"), switches = TRUE
 )

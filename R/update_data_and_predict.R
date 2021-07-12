@@ -28,7 +28,7 @@
 #'   Technologiestiftung Berlin (TSB).
 #' @param dbg debug level. The higher the value, the more verbose the output
 #' @export
-#'
+#' @importFrom fst read_fst
 update_data_and_predict <- function(
   day_string = as.character(Sys.Date()), upload = FALSE, dbg = 1
 )

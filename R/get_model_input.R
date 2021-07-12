@@ -6,7 +6,7 @@
 #' @param logRain logical
 #' @param fittingData logical
 #' @export
-#'
+#' @importFrom kwb.utils selectColumns
 get_model_input <- function(x, logRain = TRUE, fittingData = TRUE)
 {
   get <- function(column) kwb.utils::selectColumns(x, column)

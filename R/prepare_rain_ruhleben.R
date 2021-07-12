@@ -59,7 +59,8 @@ clear_high_values_in_rain_columns <- function(combined, threshold, dbg = 1)
 #'
 #' @param rain data frame containing rain data columns
 #' @export
-#'
+#' @importFrom stats setNames
+#' @importFrom  kwb.utils setColumns
 add_average_rain_columns <- function(rain)
 {
   # Define helper functions
@@ -83,6 +84,14 @@ add_average_rain_columns <- function(rain)
 }
 
 # summarise_rain_ruhleben ------------------------------------------------------
+#' Summarise Rain Ruhleben
+#'
+#' @param combined data frame "combined"
+#'
+#' @return add rain summary
+#' @export
+#'
+#' @importFrom dplyr group_by summarise
 summarise_rain_ruhleben <- function(combined)
 {
   # Ruhleben flow in "L/s" --> conversion to "1000 m3/d"

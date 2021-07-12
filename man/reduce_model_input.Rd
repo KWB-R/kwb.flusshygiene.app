@@ -4,8 +4,7 @@
 \alias{reduce_model_input}
 \title{Reduce Model Input to Relevant Data}
 \usage{
-reduce_model_input(model_input, model,
-  context = deparse(substitute(model)))
+reduce_model_input(model_input, model, context = deparse(substitute(model)))
 }
 \arguments{
 \item{model_input}{data frame}

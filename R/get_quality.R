@@ -1,4 +1,14 @@
 # get_quality ------------------------------------------------------------------
+#' Get Quality
+#'
+#' @param prediction prediction
+#' @param context default: deparse(substitute(prediction))
+#'
+#' @return quality
+#' @export
+#'
+#' @importFrom utils capture.output str
+#' @importFrom kwb.utils stringList
 get_quality <- function(prediction, context = deparse(substitute(prediction)))
 {
   # Helper function

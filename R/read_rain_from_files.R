@@ -1,4 +1,15 @@
 # read_rain_from_files ---------------------------------------------------------
+#' Read Rain from Files
+#'
+#' @param files files
+#' @param dbg default: TRUE
+#'
+#' @return data frame with imported rain data
+#' @export
+#'
+#' @importFrom kwb.utils catAndRun printIf removeColumns
+#' @importFrom dplyr bind_rows
+#' @importFrom kwb.datetime getEqualStepRanges
 read_rain_from_files <- function(files, dbg = TRUE)
 {
   # Read all given files

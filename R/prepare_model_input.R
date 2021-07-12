@@ -7,7 +7,7 @@
 #' @param tiefwerder Tiefwerder data as prepared with
 #'   \code{\link{prepare_tiefwerder}}
 #' @export
-#'
+#' @importFrom dplyr arrange full_join mutate
 prepare_model_input <- function(rain_ruhleben, tiefwerder)
 {
   message("\nPreparation of model input data\n")
