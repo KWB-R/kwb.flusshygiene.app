@@ -22,6 +22,16 @@ check_database_file_identity <- function()
 }
 
 # check_identity_fst_csv -------------------------------------------------------
+#' Check Identity fst csv
+#'
+#' @param file_fst path to fst file
+#' @param file_csv path to csv file
+#' @param ... additional arguments passt to \code{\link{read_timeseries_csv}}
+#'
+#' @return message "identical or "differ"
+#' @export
+#'
+#' @importFrom fst read_fst
 check_identity_fst_csv <- function(file_fst, file_csv, ...)
 {
   # Check if we read exactly the same from the CSV file

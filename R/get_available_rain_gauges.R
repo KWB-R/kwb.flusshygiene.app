@@ -3,7 +3,8 @@
 #' Get Information on Available Rain Gauges
 #'
 #' @export
-#'
+#' @importFrom utils read.csv
+#' @importFrom kwb.utils noFactorDataFrame
 get_available_rain_gauges <- function()
 {
   package <- "kwb.flusshygiene.app"

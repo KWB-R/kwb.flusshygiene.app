@@ -7,7 +7,7 @@
 #' @param context context string to appear in error messages. Default: name of
 #'   the object passed in \code{model}
 #' @export
-#'
+#' @importFrom stats complete.cases
 reduce_model_input <- function(
   model_input, model, context = deparse(substitute(model))
 )

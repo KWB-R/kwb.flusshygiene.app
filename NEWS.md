@@ -1,5 +1,7 @@
 # kwb.flusshygiene.app 0.11.0
 
+* Add dependent functions from other R packages to NAMESPACE via roxgen2
+
 * Move to GitHub actions (remove Travis and Appveyor as CI)
 
 * Add project [FLUSSHYGIENE](https://kompetenz-wasser.de/en/project/flusshygiene) 

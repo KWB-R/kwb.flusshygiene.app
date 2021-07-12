@@ -52,7 +52,8 @@ day_strings_until_today <- function(start_day)
 #' @param url URL to the file to be downloaded
 #' @param destfile full path to target file name
 #' @param dbg show message about the downloading process if \code{TRUE}
-#'
+#' @importFrom kwb.utils catAndRun
+#' @importFrom utils download.file
 download_file <- function(url, destfile, dbg = TRUE)
 {
   kwb.utils::catAndRun(
@@ -97,6 +98,11 @@ get_environment_variable <- function(x, do_stop = FALSE)
 }
 
 # get_root ---------------------------------------------------------------------
+#' Get Root
+#'
+#' @return root
+#' @export
+#'
 get_root <- function()
 {
   path.expand(get_environment_variable("FLUSSHYGIENE_ROOT", do_stop = TRUE))
@@ -120,6 +126,16 @@ message_updating <- function(context, root)
 }
 
 # remove_column_expected_empty -------------------------------------------------
+#' Remove Column Expected Empty
+#'
+#' @param df df
+#' @param column column
+#' @param dbg default: FALSE
+#'
+#' @return data frame without "column" to be removed (if empty!)
+#' @export
+#'
+#' @importFrom kwb.utils isNaOrEmpty removeColumns selectColumns
 remove_column_expected_empty <- function(df, column, dbg = FALSE)
 {
   if (all(kwb.utils::isNaOrEmpty(kwb.utils::selectColumns(df, column)))) {
@@ -156,6 +172,16 @@ set_root <- function(root)
 }
 
 # write_fst_file ---------------------------------------------------------------
+#' Write Fst File
+#'
+#' @param x object to be saved
+#' @param file file
+#' @param context default: deparse(substitute(x))
+#'
+#' @return write fst file
+#' @export
+#'
+#' @importFrom fst write_fst
 write_fst_file <- function(x, file, context = deparse(substitute(x)))
 {
   kwb.utils::catAndRun(
@@ -174,7 +200,7 @@ write_fst_file <- function(x, file, context = deparse(substitute(x)))
 #'   will appear in the debug message
 #' @param sep column separator, default: ";"
 #' @export
-#'
+#' @importFrom utils write.table
 write_input_file <- function(
   x, file, context = deparse(substitute(x)), sep = ";"
 )

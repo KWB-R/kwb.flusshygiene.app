@@ -8,7 +8,9 @@
 #'   are removed. Otherwise everything is returned.
 #' @param dbg write debug messages if \code{TRUE}
 #' @export
-#'
+#' @importFrom utils read.csv
+#' @importFrom kwb.datetime textToEuropeBerlinPosix
+#' @importFrom kwb.utils multiSubstitute
 read_bwb_file <- function(file, first_day_only = TRUE, dbg = TRUE)
 {
   # Read CSV file with first two columns character and all others numeric

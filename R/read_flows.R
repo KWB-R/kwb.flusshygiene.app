@@ -10,7 +10,7 @@
 #'   \code{"Windows-1252"}
 #' @param dbg if \code{TRUE} (default) debug messages are shown
 #' @export
-#'
+#' @importFrom kwb.utils catAndRun
 read_flows <- function(
   file, columns = c("DateTime", "Flow"), switches = TRUE,
   fileEncoding = "Windows-1252", dbg = TRUE
@@ -109,6 +109,18 @@ find_header_rows <- function(text_lines, file)
 }
 
 # lines_to_flow_data -----------------------------------------------------------
+#' Lines to Flow Data
+#'
+#' @param x data frame
+#' @param columns default: c("DateTime", "Flow")
+#' @param switches default: TRUE
+#'
+#' @return Return only selected columns unless "columns" is NULL
+#' @export
+#'
+#' @importFrom utils read.table
+#' @importFrom kwb.datetime textToEuropeBerlinPosix
+#' @importFrom kwb.utils selectColumns
 lines_to_flow_data <- function(
   x, columns = c("DateTime", "Flow"), switches = TRUE
 )

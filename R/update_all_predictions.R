@@ -1,4 +1,15 @@
 # update_all_predictions -------------------------------------------------------
+#' Update All Predictions
+#'
+#' @param prediction_today prediction_today
+#' @param root default: \link{get_root}
+#'
+#' @return update all predictions
+#' @export
+#'
+#' @importFrom utils read.csv
+#' @importFrom kwb.utils safePath selectColumns
+#' @importFrom dplyr arrange
 update_all_predictions <- function(prediction_today, root = get_root())
 {
   #kwb.utils::assignPackageObjects("kwb.flusshygiene.app")

@@ -4,8 +4,13 @@
 \alias{read_flows}
 \title{Read Flow Data from File}
 \usage{
-read_flows(file, columns = c("DateTime", "Flow"), switches = TRUE,
-  fileEncoding = "Windows-1252", dbg = TRUE)
+read_flows(
+  file,
+  columns = c("DateTime", "Flow"),
+  switches = TRUE,
+  fileEncoding = "Windows-1252",
+  dbg = TRUE
+)
 }
 \arguments{
 \item{file}{path to text file containing flow data}
